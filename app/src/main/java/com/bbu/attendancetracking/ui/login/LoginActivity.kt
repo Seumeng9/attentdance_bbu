@@ -4,21 +4,29 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.bbu.attendancetracking.MainActivity
-import com.bbu.attendancetracking.databinding.ActivityLoginBinding
-
 import com.bbu.attendancetracking.R
+import com.bbu.attendancetracking.data.LoginRepository
+import com.bbu.attendancetracking.databinding.ActivityLoginBinding
+import com.bbu.attendancetracking.ui.signup.SignupActivity
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -36,8 +44,34 @@ class LoginActivity : AppCompatActivity() {
         val login = binding.login
         val loading = binding.loading
 
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
+        // Initially set the password to hidden state
+        var isPasswordVisible = false
+
+        password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.hide, 0)
+
+        password.setOnTouchListener { _, event ->
+            val drawableRight = password.compoundDrawables[2]
+            if (event.action == android.view.MotionEvent.ACTION_UP) {
+                if (event.rawX >= password.right - drawableRight.bounds.width()) {
+                    // Toggle the password visibility
+                    isPasswordVisible = !isPasswordVisible
+                    if (isPasswordVisible) {
+                        password.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                        password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.hide, 0)
+                    } else {
+                        password.transformationMethod = PasswordTransformationMethod.getInstance()
+                        password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.hide_unhide, 0)
+                    }
+                    return@setOnTouchListener true
+                }
+            }
+            false
+        }
+
+        // Initialize Repository and ViewModel
+        val repository = LoginRepository()
+        val factory = LoginViewModelFactory(repository)
+        loginViewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
@@ -53,29 +87,35 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-            val loginResult = it ?: return@Observer
+
+
+        // Observe login result
+        loginViewModel.loginResult.observe(this) { result ->
 
             loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
+            when (result) {
+                is com.bbu.attendancetracking.data.Result.Success -> {
+                    // Handle success
+                    Log.d("LoginActivity", "Login successful: ${result.data}")
+                    setResult(Activity.RESULT_OK)
+
+                    val sharedPreferences: SharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putBoolean("isLogin", true)
+                    editor.apply()
+
+                    // Navigate to MainActivity
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish() // Close LoginActivity
+                }
+                is com.bbu.attendancetracking.data.Result.Error -> {
+                    // Handle error
+
+                    Toast.makeText(this, "Login Failed: Invalid Username Or Password", Toast.LENGTH_SHORT).show()
+                    Log.e("LoginActivity", "Login failed: ${result.exception.message}")
+                }
             }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
-            }
-            setResult(Activity.RESULT_OK)
-
-            val sharedPreferences: SharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putBoolean("isLogin", true)
-            editor.apply()
-
-            // Navigate to MainActivity
-            startActivity(Intent(this, MainActivity::class.java))
-            finish() // Close LoginActivity
-
-
-        })
+        }
 
         username.afterTextChanged {
             loginViewModel.loginDataChanged(
@@ -104,8 +144,16 @@ class LoginActivity : AppCompatActivity() {
             }
 
             login.setOnClickListener {
-                loading.visibility = View.VISIBLE
+                loading?.visibility = View.VISIBLE
+
                 loginViewModel.login(username.text.toString(), password.text.toString())
+
+
+            }
+
+            binding.registerLink?.setOnClickListener {
+                val intent = Intent(applicationContext, SignupActivity::class.java)
+                startActivity(intent)
             }
         }
     }
@@ -114,11 +162,11 @@ class LoginActivity : AppCompatActivity() {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
-        Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
+//        Toast.makeText(
+//            applicationContext,
+//            "$welcome $displayName",
+//            Toast.LENGTH_LONG
+//        ).show()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {

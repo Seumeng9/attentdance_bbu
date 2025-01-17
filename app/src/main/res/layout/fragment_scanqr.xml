@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:zxing="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+>
+
+    <!-- Include the custom app bar -->
+    <include
+        android:id="@+id/custom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/custom_app_bar_scan" />
+
+    <!-- Barcode scanner -->
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/barcode_scanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        zxing:zxing_framing_rect_width="250dp"
+        zxing:zxing_framing_rect_height="250dp" />
+
+    <!-- Result text -->
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Result will appear here"
+        android:textSize="16sp"
+        android:gravity="center" />
+
+</LinearLayout>

@@ -1,34 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.home.HomeFragment">
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    android:theme="@style/Theme.AttendanceTracking"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_home"
+    <!-- Custom App Bar -->
+    <include
+        android:id="@+id/customAppBar"
+        layout="@layout/custom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:id="@+id/spaceView"
+
+        android:layout_below="@id/customAppBar"
+
+        ></View>
+
+    <!-- Scan QR Section -->
+    <com.google.android.material.textfield.TextInputLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_marginHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        android:id="@+id/searchSection"
+        android:layout_below="@+id/spaceView"
+        android:background="@drawable/rounded_corner_bg_green"
+        app:boxBackgroundColor="@android:color/transparent"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusBottomEnd="16dp"
+        tools:context=".MainActivity">
 
-    <LinearLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchTextField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="16dp"
+            android:textSize="16sp"
+            android:layoutDirection="ltr"
+            android:hint="Search"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColorHint="@android:color/black"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/white"
+            android:lines="1"
+            android:maxLines="1"
+            android:scrollHorizontally="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    <!-- Scrollable Content -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/logoutButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Logout" />
-    </LinearLayout>
-</LinearLayout>
+        android:layout_below="@id/searchSection"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
+</RelativeLayout>
