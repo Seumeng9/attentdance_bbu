@@ -52,4 +52,25 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // Retrofit converter (for JSON parsing)
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+    implementation("com.google.zxing:core:3.5.2")
+
+
+    // OkHttp for logging (optional, useful for debugging)
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
+    dependencies {
+        implementation("com.prolificinteractive:material-calendarview:1.4.3") {
+            exclude(group = "com.android.support", module = "support-compat")
+        }
+    }
+
+
 }

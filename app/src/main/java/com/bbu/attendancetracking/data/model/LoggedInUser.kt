@@ -7,3 +7,8 @@ data class LoggedInUser(
     val userId: String,
     val displayName: String
 )
+
+data class LoginRequest(
+    val password: String,
+    val username: String
+)

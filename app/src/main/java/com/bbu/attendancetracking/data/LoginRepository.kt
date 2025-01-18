@@ -1,13 +1,20 @@
 package com.bbu.attendancetracking.data
 
+import android.graphics.ColorSpace.Model
+import android.util.Log
+import android.widget.Toast
+import com.bbu.attendancetracking.api.ApiClient
+import com.bbu.attendancetracking.api.ApiService
 import com.bbu.attendancetracking.data.model.LoggedInUser
+import com.bbu.attendancetracking.data.model.LoginRequest
+import okhttp3.ResponseBody
 
 /**
  * Class that requests authentication and user information from the remote data source and
  * maintains an in-memory cache of login status and user credentials information.
  */
 
-class LoginRepository(val dataSource: LoginDataSource) {
+class LoginRepository() {
 
     // in-memory cache of the loggedInUser object
     var user: LoggedInUser? = null
@@ -22,20 +29,46 @@ class LoginRepository(val dataSource: LoginDataSource) {
         user = null
     }
 
-    fun logout() {
-        user = null
-        dataSource.logout()
-    }
+//    fun logout() {
+//        user = null
+//        dataSource.logout()
+//    }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
-        // handle login
-        val result = dataSource.login(username, password)
+//    suspend fun login(username: String, password: String): Result<LoggedInUser> {
+//        // handle login
+//        val result = dataSource.login(username, password)
+//
+//        ApiClient.apiService.login(LoginRequest(password, username))
+//
+//        if (result is Result.Success) {
+//            setLoggedInUser(result.data)
+//        }
+//
+//        return result
+//    }
 
-        if (result is Result.Success) {
-            setLoggedInUser(result.data)
+    suspend fun login(username: String, password: String): Result<ResponseBody> {
+        return try {
+            val request = LoginRequest(password, username)
+
+            Log.d("YourTag", "call api")
+            Log.d("YourRepository", "Making API call with request: $request")
+            val response = ApiClient.apiService.login(request)
+
+            Log.d("YourRepository", "Raw response: ${response.raw()}") // Logs raw response details
+            Log.d("YourRepository", "Response body: ${response.body()}") // Logs parsed body (if successful)
+
+            Log.d("MyRepository", "API response received: $response")
+            if (response.isSuccessful) {
+                Result.Success(response.body()!!)
+
+            } else {
+
+                Result.Error(Exception("Network request failed: ${response.message()}"))
+            }
+        } catch (e: Exception) {
+            Result.Error(e)
         }
-
-        return result
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {
