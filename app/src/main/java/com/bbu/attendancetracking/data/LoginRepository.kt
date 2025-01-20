@@ -7,6 +7,7 @@ import com.bbu.attendancetracking.api.ApiClient
 import com.bbu.attendancetracking.api.ApiService
 import com.bbu.attendancetracking.data.model.LoggedInUser
 import com.bbu.attendancetracking.data.model.LoginRequest
+import com.bbu.attendancetracking.data.model.LoginResponse
 import okhttp3.ResponseBody
 
 /**
@@ -47,7 +48,7 @@ class LoginRepository() {
 //        return result
 //    }
 
-    suspend fun login(username: String, password: String): Result<ResponseBody> {
+    suspend fun login(username: String, password: String): Result<LoginResponse> {
         return try {
             val request = LoginRequest(password, username)
 

@@ -6,10 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
 import androidx.lifecycle.viewModelScope
+import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.data.LoginRepository
 import com.bbu.attendancetracking.data.Result
 
 import com.bbu.attendancetracking.R
+import com.bbu.attendancetracking.data.LocalStorageHelper
+import com.bbu.attendancetracking.data.model.LoginResponse
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 
@@ -19,8 +22,8 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
 
-    private val _loginResult = MutableLiveData<Result<ResponseBody>>()
-    val loginResult: LiveData<Result<ResponseBody>> get() = _loginResult
+    private val _loginResult = MutableLiveData<Result<LoginResponse>>()
+    val loginResult: LiveData<Result<LoginResponse>> get() = _loginResult
 
     fun login(username: String, password: String) {
         viewModelScope.launch {

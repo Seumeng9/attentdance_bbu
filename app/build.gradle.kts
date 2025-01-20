@@ -7,6 +7,10 @@ android {
     namespace = "com.bbu.attendancetracking"
     compileSdk = 34
 
+    viewBinding {
+        enable = true
+    }
+
     defaultConfig {
         applicationId = "com.bbu.attendancetracking"
         minSdk = 24
@@ -53,6 +57,8 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 
+
+
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
@@ -61,6 +67,7 @@ dependencies {
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("com.google.zxing:core:3.5.2")
+
 
 
     // OkHttp for logging (optional, useful for debugging)

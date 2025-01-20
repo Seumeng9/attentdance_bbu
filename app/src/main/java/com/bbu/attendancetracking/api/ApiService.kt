@@ -2,6 +2,7 @@ package com.bbu.attendancetracking.api
 
 import android.graphics.ColorSpace.Model
 import com.bbu.attendancetracking.data.model.LoginRequest
+import com.bbu.attendancetracking.data.model.LoginResponse
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -27,5 +28,5 @@ interface ApiService {
 
 
     @POST("auth/login")
-    suspend fun login(@Body requestBody: LoginRequest): Response<ResponseBody>
+    suspend fun login(@Body requestBody: LoginRequest): Response<LoginResponse>
 }

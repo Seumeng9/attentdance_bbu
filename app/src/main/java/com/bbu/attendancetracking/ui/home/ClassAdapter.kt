@@ -37,6 +37,12 @@ class ClassAdapter(private val classList: List<ClassItem>) :
             // Your code to handle the click event
 //            val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
             print("cliccked")
+
+//            val bottomNavigationView = view.findViewById<BottomNavigationView>(R.id.bb)
+
+
+//            bottomNavigationView.selectedItemId = R.id.scanQRIcon
+
 //            Toast.makeText(parent.context, "Your message here", Toast.LENGTH_SHORT).show()
 
 

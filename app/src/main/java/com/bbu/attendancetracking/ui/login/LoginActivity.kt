@@ -22,7 +22,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bbu.attendancetracking.MainActivity
+import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
+import com.bbu.attendancetracking.data.LocalStorageHelper
 import com.bbu.attendancetracking.data.LoginRepository
 import com.bbu.attendancetracking.databinding.ActivityLoginBinding
 import com.bbu.attendancetracking.ui.signup.SignupActivity
@@ -103,6 +105,9 @@ class LoginActivity : AppCompatActivity() {
                     val editor = sharedPreferences.edit()
                     editor.putBoolean("isLogin", true)
                     editor.apply()
+
+                    LocalStorageHelper.saveLoginResponse(MyApplication.instance.applicationContext, result.data)
+
 
                     // Navigate to MainActivity
                     startActivity(Intent(this, MainActivity::class.java))

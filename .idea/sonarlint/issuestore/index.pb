@@ -65,3 +65,13 @@ k
 ;app/src/main/java/com/bbu/attendancetracking/data/Result.kt,6/7/67cb5443d659851f91ef7ae87ce4b71a360997fd
 F
 app/proguard-rules.pro,9/e/9e08934d811afe28fbc77aaa3c0d747b94348db9
+m
+=app/src/main/java/com/bbu/attendancetracking/MyApplication.kt,4/1/410cd7fec5f9e7cb8872b41a687148345a591ad9
+w
+Gapp/src/main/java/com/bbu/attendancetracking/data/LocalStorageHelper.kt,4/8/488f033927755d50589daabfe5c0405fda153af9
+s
+Capp/src/main/java/com/bbu/attendancetracking/api/AuthInterceptor.kt,3/8/3827914fffe802ba19f697a5ee9e404abb8066e9
+w
+Gapp/src/main/java/com/bbu/attendancetracking/ui/home/ScanQrViewModel.kt,a/f/afac06968639d9766cbc6fd07f83c17cdd1fc1ef
+v
+Fapp/src/main/java/com/bbu/attendancetracking/ui/home/ScanQrActivity.kt,0/7/070362e742a2c2536f5d89f2480a0c233c40efa9

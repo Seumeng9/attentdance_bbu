@@ -18,7 +18,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-//    private lateinit var bottomNavigationView: BottomNavigationView
+
+    private lateinit var bottomNavigationView: BottomNavigationView
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -54,6 +55,9 @@ class HomeFragment : Fragment() {
 
 
 //        bottomNavigationView = requireActivity().findViewById(R.id.nav_view)
+
+//        bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
+
 
 
         val adapter = ClassAdapter(classList)

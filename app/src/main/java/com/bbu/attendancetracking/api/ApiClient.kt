@@ -7,7 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 object ApiClient {
 
-    private const val BASE_URL = "https://attendance-tracking-api-asc9.onrender.com/"
+    private const val BASE_URL = "http://103.252.116.86/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -15,7 +15,10 @@ object ApiClient {
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
+        .addInterceptor(AuthInterceptor())
         .build()
+
+
 
     private val retrofit by lazy {
         Retrofit.Builder()
