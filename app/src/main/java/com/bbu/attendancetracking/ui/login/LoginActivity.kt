@@ -107,6 +107,7 @@ class LoginActivity : AppCompatActivity() {
                     editor.apply()
 
                     LocalStorageHelper.saveLoginResponse(MyApplication.instance.applicationContext, result.data)
+                    LocalStorageHelper.saveToken(MyApplication.instance.applicationContext, result.data?.access_token ?: "")
 
 
                     // Navigate to MainActivity
@@ -119,6 +120,8 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Login Failed: Invalid Username Or Password", Toast.LENGTH_SHORT).show()
                     Log.e("LoginActivity", "Login failed: ${result.exception.message}")
                 }
+
+                else -> {}
             }
         }
 

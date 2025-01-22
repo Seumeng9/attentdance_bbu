@@ -10,7 +10,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
+import com.bbu.attendancetracking.data.LocalStorageHelper
+import com.bbu.attendancetracking.data.model.LoginResponse
 import com.bbu.attendancetracking.databinding.FragmentProfileBinding
 import com.bbu.attendancetracking.ui.login.LoginActivity
 
@@ -32,6 +35,13 @@ class ProfileFragment : Fragment() {
 //        profileViewModel.text.observe(viewLifecycleOwner) {
 //            binding.textProfile.text = it
 //        }
+
+        var loginDetails: LoginResponse? = LocalStorageHelper.getLoginResponse(MyApplication.instance.applicationContext)
+
+        binding.profileName.text = loginDetails?.user?.firstName + loginDetails?.user?.firstName
+        binding.profileEmail.text = loginDetails?.user?.email
+
+
 
         binding.logoutButton.setOnClickListener{
             val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)

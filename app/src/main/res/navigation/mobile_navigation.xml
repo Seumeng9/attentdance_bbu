@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_scan_qr"
-        android:name="com.bbu.attendancetracking.ui.dashboard.DashboardFragment"
+        android:name="com.bbu.attendancetracking.ui.scanqr.ScanQrFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_scanqr" />
 
     <fragment
         android:id="@+id/navigation_attendance"
-        android:name="com.bbu.attendancetracking.ui.notifications.NotificationsFragment"
+        android:name="com.bbu.attendancetracking.ui.attendance.AttendanceFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_attendance" />
 

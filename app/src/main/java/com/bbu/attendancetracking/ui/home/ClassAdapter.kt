@@ -23,7 +23,7 @@ class ClassAdapter(private val classList: List<ClassItem>) :
         fun bind(classItem: ClassItem) {
             titleTextView.text = classItem.title
             dateTextView.text = classItem.date
-            labTextView.text = classItem.lab
+            labTextView.text = classItem.labNo
         }
     }
 

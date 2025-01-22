@@ -1,126 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- AppBar -->
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="match_parent"
-        tools:context=".ui.notifications.NotificationsFragment"
-        android:orientation="vertical"
-       >
-
-        <!-- AppBar -->
-        <androidx.appcompat.widget.Toolbar
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:elevation="4dp">
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:elevation="4dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Attendance"
-                android:gravity="center"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-medium" />
-        </androidx.appcompat.widget.Toolbar>
-
-        <!-- Tabs -->
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabIndicatorColor="@color/colorPrimary"
-            app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextColor="@color/colorOnPrimary">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Calendar" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Report" />
-        </com.google.android.material.tabs.TabLayout>
-
-        <!-- Material Calendar -->
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-            android:id="@+id/materialCalendarView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:mcv_showOtherDates="all"
-            app:mcv_headerTextAppearance="@style/CustomWeekDayTextAppearance"
-
-            app:mcv_dateTextAppearance="@style/CustomDateTextAppearance"
-            app:mcv_weekDayTextAppearance="@style/CustomWeekDayTextAppearance"
-            app:mcv_selectionColor="@color/colorPrimary"
-            android:layout_marginTop="16dp" />
-
-        <!-- Legend -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:text="Attendance"
             android:gravity="center"
-            android:layout_marginTop="16dp">
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium" />
+    </androidx.appcompat.widget.Toolbar>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:background="@color/colorPrimary" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Present"
-                    android:textColor="@color/green"
-                    android:textSize="14sp"
-                    android:layout_marginStart="8dp" />
-            </LinearLayout>
+    <!-- Tabs -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        app:tabTextColor="@color/colorOnPrimary"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="16dp">
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:background="@color/yellow" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Late"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:layout_marginStart="8dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="16dp">
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:background="@color/red" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Absent"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:layout_marginStart="8dp" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+    <!-- ViewPager2 for Switching Between Calendar and Report -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
