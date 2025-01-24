@@ -1,5 +1,8 @@
 package com.bbu.attendancetracking.ui.home
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bbu.attendancetracking.data.model.ClassResponse
@@ -22,8 +25,17 @@ class HomeViewModel() : ViewModel() {
 
     private val _errorMessage = MutableStateFlow<String?>(null)
 
+    private val _fetchDataTrigger = MutableLiveData<Boolean>()
+    val fetchDataTrigger: LiveData<Boolean> = _fetchDataTrigger
+
     private var currentPage = 1;
     val errorMessage: StateFlow<String?> get() = _errorMessage
+
+    // Function to trigger API call from other fragments
+    fun triggerFetchData() {
+        Log.d("Trigger:", "Trigger Fetch Data")
+        _fetchDataTrigger.value = true
+    }
 
     suspend fun fetchClasses(page: Int = 1) {
         if (currentPage == -1) {

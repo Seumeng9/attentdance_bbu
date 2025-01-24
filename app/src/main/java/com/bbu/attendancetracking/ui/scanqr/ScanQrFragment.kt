@@ -13,16 +13,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bbu.attendancetracking.R
+import com.bbu.attendancetracking.ui.home.HomeViewModel
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class ScanQrFragment : Fragment() {
 
     private lateinit var barcodeScannerView: DecoratedBarcodeView
     private lateinit var resultText: TextView
     private lateinit var backButton: ImageButton
+    private val viewModel: ScanQrViewModel by viewModels()
 
 
     companion object {
@@ -65,6 +72,20 @@ class ScanQrFragment : Fragment() {
             startScanning()
         }
 
+        // Observe error messages
+        viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            if (errorMessage.isNotEmpty()) {
+                Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // Observe success messages
+        viewModel.successMessage.observe(viewLifecycleOwner) { successMessage ->
+            Toast.makeText(requireContext(), successMessage, Toast.LENGTH_SHORT).show()
+            // Navigate back to the previous screen on success
+            findNavController().navigateUp()
+        }
+
         return view
     }
 
@@ -74,6 +95,7 @@ class ScanQrFragment : Fragment() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
         if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startScanning()
@@ -92,14 +114,48 @@ class ScanQrFragment : Fragment() {
         barcodeScannerView.decodeContinuous(object : BarcodeCallback {
             override fun barcodeResult(result: BarcodeResult?) {
                 result?.let {
-                    // Update the resultText with scanned QR code content
-                    resultText.text = "Scanned Result: ${it.text}"
 
-                    // Stop scanning after the first scan
                     barcodeScannerView.pause()
+                    // Extract classId from the scanned QR code
+                    val qrContent = it.text // Example: "CLASS_ID:202"
+                    val regex = """CLASS_ID:(\S+)""".toRegex()
+                    val matchResult = regex.find(qrContent)
 
-                    // Optionally, hide the camera or other UI elements here
-                    barcodeScannerView.visibility = View.GONE
+                    try {
+                        val classId = matchResult?.groupValues?.get(1)?.toInt()
+
+                        // Show the loading indicator
+                        val loadingView = requireView().findViewById<View>(R.id.loading)
+                        loadingView.visibility = View.VISIBLE
+
+
+                        // Call the ViewModel method in a coroutine
+                        lifecycleScope.async {
+                            try {
+                                lifecycleScope.async {
+                                    viewModel.submitAttendant(classId?:0)
+                                }.await() // Call API
+
+                                // After successful submission, navigate back or show success UI
+                                findNavController().navigateUp()
+
+                                // Trigger the fetch in HomeFragment once navigation back occurs
+                                val homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class.java]
+                                homeViewModel.triggerFetchData() // Notify HomeFragment to fetch data
+                            } catch (e: Exception) {
+                                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                            } finally {
+                                // Hide the loading indicator
+                                loadingView.visibility = View.GONE
+
+                                // Stop scanning after handling the result
+
+                                barcodeScannerView.visibility = View.GONE
+                            }
+                        }
+                    } catch (e: NumberFormatException) {
+                        Toast.makeText(requireContext(), "Invalid QR code format!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
@@ -109,6 +165,7 @@ class ScanQrFragment : Fragment() {
         })
         barcodeScannerView.resume()
     }
+
 
     override fun onPause() {
         super.onPause()

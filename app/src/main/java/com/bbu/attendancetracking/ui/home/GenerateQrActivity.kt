@@ -11,9 +11,11 @@ import com.google.zxing.common.BitMatrix
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
+import android.util.TypedValue
 import android.view.Window
 import android.view.WindowManager
 import androidx.navigation.findNavController
+import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
 import com.bbu.attendancetracking.data.model.RecyclerViewItem
 
@@ -51,41 +53,42 @@ class GenerateQrActivity : AppCompatActivity() {
 
         // Handle the button click for generating the QR code
         binding.generateQrButton.setOnClickListener {
-            val qrContent = "CLASS_ID:$classId" // Replace with the content you want in the QR code
+            val qrContent = "My QR Code For Scan Submit Attendance  CLASS_ID:$classId , Use This For Submit to API" // Replace with the content you want in the QR code
             generateQrCode(qrContent)
         }
     }
 
     private fun generateQrCode(content: String) {
         try {
-            // Initialize the QR code writer
             val qrCodeWriter = QRCodeWriter()
-
-            // Set encoding hints (optional)
+            val size = 800 // Increase resolution for better scannability
             val hints = hashMapOf<EncodeHintType, Any>(
-                EncodeHintType.MARGIN to 2 // Increase margin for better readability
+                EncodeHintType.CHARACTER_SET to "UTF-8", // Encoding for content
+                EncodeHintType.MARGIN to 4 // Margin for readability
             )
+            val bitMatrix: BitMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, size, size, hints)
 
-            // Create the BitMatrix (binary representation of the QR code)
-            val bitMatrix: BitMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, 800, 800, hints)
+            // Define colors
+            val foregroundColor = Color.parseColor("#1E88E5") // Dark Blue
+            val backgroundColor = Color.parseColor("#FFFFFF") // White
 
-            // Convert BitMatrix to Bitmap
-            val width = bitMatrix.width
-            val height = bitMatrix.height
-            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
-
-            for (x in 0 until width) {
-                for (y in 0 until height) {
-                    bitmap.setPixel(x, y, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
+            // Create Bitmap with custom colors
+            val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565)
+            for (x in 0 until size) {
+                for (y in 0 until size) {
+                    val color = if (bitMatrix[x, y]) foregroundColor else backgroundColor
+                    bitmap.setPixel(x, y, color)
                 }
             }
 
-            // Set the generated QR code as the source of the ImageView
+            // Set Bitmap to ImageView
             binding.qrImageView.setImageBitmap(bitmap)
 
         } catch (e: Exception) {
-            // Handle any errors (e.g., invalid content)
-//            Toast.makeText(requireContext(), "Error generating QR code: ${e.message}", Toast.LENGTH_SHORT).show()
+            e.printStackTrace()
+            Toast.makeText(MyApplication.instance.applicationContext, "Error generating QR code: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
+
+
 }

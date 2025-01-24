@@ -16,9 +16,11 @@
     <!-- QR ImageView -->
     <android.widget.ImageView
         android:id="@+id/qrImageView"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:scaleType="fitCenter"
         app:layout_constraintTop_toBottomOf="@id/custom_app_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

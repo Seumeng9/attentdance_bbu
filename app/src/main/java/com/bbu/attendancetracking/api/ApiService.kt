@@ -28,9 +28,9 @@ interface ApiService {
     suspend fun getData(): Response<Model>
 
     // Example of a POST request
-    @POST("/attendance")
+    @POST("attendance")
     suspend fun submitAttendance(
-        @Body requestBody: Map<String, Any> // Request body as Map
+        @Body requestBody: Map<String, Int>
     ): Response<AttendanceResponse>
 
 

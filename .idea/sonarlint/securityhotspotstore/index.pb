@@ -83,7 +83,11 @@ Napp/src/main/java/com/bbu/attendancetracking/ui/attendance/CalendarFragment.kt
 Kapp/src/main/java/com/bbu/attendancetracking/ui/home/GenerateQrViewModel.kt,0/4/04665fa5909351ea40b6426ac419f75fdd234bb5
 z
 Japp/src/main/java/com/bbu/attendancetracking/ui/home/GenerateQrActivity.kt,5/b/5bce3e425274cc891f17111371c8b841b754a434
-|
-Lapp/src/main/java/com/bbu/attendancetracking/ui/scanqr/DashboardViewModel.kt,1/5/15537b142cb77a7a7771c81da433f0d39a0e4223
-{
-Kapp/src/main/java/com/bbu/attendancetracking/ui/scanqr/DashboardFragment.kt,e/6/e64b671c71c829c2eac5ce402bef2e0108a8766c
+t
+Dapp/src/main/java/com/bbu/attendancetracking/api/ErrorInterceptor.kt,d/8/d83842204ed800de8368e6d5931bb63b7fdf1307
+}
+Mapp/src/main/java/com/bbu/attendancetracking/data/model/AttendanceResponse.kt,2/9/29a4403cfbec53affa05705d2264b6a3cf04d718
+y
+Iapp/src/main/java/com/bbu/attendancetracking/ui/scanqr/ScanQrViewModel.kt,c/7/c73f0407f91036006e197f0dda0d9f51b2a54ace
+x
+Happ/src/main/java/com/bbu/attendancetracking/ui/scanqr/ScanQrFragment.kt,2/7/275c2881528622cc45490ac710b69da948fdbe04
