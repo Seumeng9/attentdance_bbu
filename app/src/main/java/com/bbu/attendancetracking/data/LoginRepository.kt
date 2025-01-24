@@ -1,10 +1,7 @@
 package com.bbu.attendancetracking.data
 
-import android.graphics.ColorSpace.Model
 import android.util.Log
-import android.widget.Toast
 import com.bbu.attendancetracking.api.ApiClient
-import com.bbu.attendancetracking.api.ApiService
 import com.bbu.attendancetracking.data.model.LoggedInUser
 import com.bbu.attendancetracking.data.model.LoginRequest
 import okhttp3.ResponseBody
