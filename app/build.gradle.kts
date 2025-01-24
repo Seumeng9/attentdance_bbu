@@ -1,11 +1,17 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
+
 }
 
 android {
     namespace = "com.bbu.attendancetracking"
     compileSdk = 35
+
+    viewBinding {
+        enable = true
+    }
 
     defaultConfig {
         applicationId = "com.bbu.attendancetracking"
@@ -54,6 +60,8 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 
+
+
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
@@ -61,10 +69,13 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
-    implementation("com.google.zxing:core:3.5.2")
+    implementation("com.google.zxing:core:3.4.0")
+
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    implementation ("com.google.android.material:material:1.3.0")
 
 
-    // OkHttp for logging (optional, useful for debugging)
+
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     dependencies {

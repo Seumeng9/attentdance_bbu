@@ -77,7 +77,7 @@
     <EditText
         android:id="@+id/password"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:inputType="textPassword"
         android:layout_marginRight="20dp"
         android:background="@android:drawable/edit_text"
@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@id/passwordLabel"
         app:layout_constraintStart_toStartOf="@+id/passwordLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        android:hint="Enter your password" />
+        />
 
 
     <!-- "Don't have an account?" with Register Link -->

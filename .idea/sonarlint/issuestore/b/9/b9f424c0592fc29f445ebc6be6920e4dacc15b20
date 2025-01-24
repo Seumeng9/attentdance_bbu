@@ -1,4 +1,7 @@
 
-Ukotlin:S1481+"1Remove this unused "customAppBar" local variable.(üÍ×Şùÿÿÿÿ8şÇ ®Å2
->kotlin:S1128"Remove this unused import.(Æ¬ñòşÿÿÿÿ8Ôû€®Å2
-9kotlin:S1128"Remove this unused import.(Éà…¾8¢é®Å2
+]kotlin:S1172*">Use "_" instead of this unused lambda parameter "shouldFetch".(áæğ8¸›ñ•É2
+Bkotlin:S1255"Remove this commented out code.(ôéÃúüÿÿÿÿ8Ş˜¤”É2
+^kotlin:S6315o"?This function returns "Deferred", but its result is never used.(ä”½Á8Òõ”É2
+^kotlin:S6315,"?This function returns "Deferred", but its result is never used.(ä”½Á8êÛ•É2
+>kotlin:S1128
+"Remove this unused import.(Øîğùÿÿÿÿ8Ôõ”É2

@@ -15,7 +15,11 @@ object ApiClient {
 
     private val client = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
+        .addInterceptor(AuthInterceptor())
+        .addInterceptor(ErrorInterceptor())
         .build()
+
+
 
     private val retrofit by lazy {
         Retrofit.Builder()

@@ -19,7 +19,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bbu.attendancetracking.MainActivity
+import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
+import com.bbu.attendancetracking.data.LocalStorageHelper
 import com.bbu.attendancetracking.data.LoginRepository
 import com.bbu.attendancetracking.databinding.ActivityLoginBinding
 import com.bbu.attendancetracking.ui.signup.SignupActivity
@@ -101,6 +103,10 @@ class LoginActivity : AppCompatActivity() {
                     editor.putBoolean("isLogin", true)
                     editor.apply()
 
+                    LocalStorageHelper.saveLoginResponse(MyApplication.instance.applicationContext, result.data)
+                    LocalStorageHelper.saveToken(MyApplication.instance.applicationContext, result.data?.access_token ?: "")
+
+
                     // Navigate to MainActivity
                     startActivity(Intent(this, MainActivity::class.java))
                     finish() // Close LoginActivity
@@ -111,6 +117,8 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this, "Login Failed: Invalid Username Or Password", Toast.LENGTH_SHORT).show()
                     Log.e("LoginActivity", "Login failed: ${result.exception.message}")
                 }
+
+                else -> {}
             }
         }
 
