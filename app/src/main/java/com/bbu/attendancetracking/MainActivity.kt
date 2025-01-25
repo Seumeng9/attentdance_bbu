@@ -7,15 +7,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.bbu.attendancetracking.data.LocalStorageHelper
-import com.bbu.attendancetracking.data.model.LoginResponse
 import com.bbu.attendancetracking.databinding.ActivityMainBinding
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
+import com.bbu.attendancetracking.model.LoginResponse
 import com.bbu.attendancetracking.ui.login.LoginActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 

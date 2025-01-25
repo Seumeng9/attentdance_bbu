@@ -21,9 +21,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.bbu.attendancetracking.MainActivity
 import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
-import com.bbu.attendancetracking.data.LocalStorageHelper
-import com.bbu.attendancetracking.data.LoginRepository
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
+import com.bbu.attendancetracking.repository.LoginRepository
 import com.bbu.attendancetracking.databinding.ActivityLoginBinding
+import com.bbu.attendancetracking.helpers.Result
 import com.bbu.attendancetracking.ui.signup.SignupActivity
 
 
@@ -93,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
 
             loading.visibility = View.GONE
             when (result) {
-                is com.bbu.attendancetracking.data.Result.Success -> {
+                is Result.Success -> {
                     // Handle success
                     Log.d("LoginActivity", "Login successful: ${result.data}")
                     setResult(Activity.RESULT_OK)
@@ -111,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(Intent(this, MainActivity::class.java))
                     finish() // Close LoginActivity
                 }
-                is com.bbu.attendancetracking.data.Result.Error -> {
+                is Result.Error -> {
                     // Handle error
 
                     Toast.makeText(this, "Login Failed: Invalid Username Or Password", Toast.LENGTH_SHORT).show()

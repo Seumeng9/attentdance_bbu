@@ -1,4 +1,4 @@
-package com.bbu.attendancetracking.data.model
+package com.bbu.attendancetracking.model
 
 data class AttendanceResponse(
     val attendance_id: Int,

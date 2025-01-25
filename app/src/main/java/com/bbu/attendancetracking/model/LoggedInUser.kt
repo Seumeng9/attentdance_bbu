@@ -1,4 +1,4 @@
-package com.bbu.attendancetracking.data.model
+package com.bbu.attendancetracking.model
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

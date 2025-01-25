@@ -4,17 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.bbu.attendancetracking.data.model.ClassResponse
-import com.bbu.attendancetracking.data.model.RecyclerViewItem
-import com.bbu.attendancetracking.repository.ApiRepository
-import com.google.gson.Gson
-import com.google.gson.JsonObject
+import com.bbu.attendancetracking.model.ClassResponse
+import com.bbu.attendancetracking.model.RecyclerViewItem
+import com.bbu.attendancetracking.repository.ClassRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.RequestBody
 
 class HomeViewModel() : ViewModel() {
 
@@ -43,7 +37,7 @@ class HomeViewModel() : ViewModel() {
         }
 
         try {
-            val response = ApiRepository().getListClass("40", "", page)
+            val response = ClassRepository().getListClass("40", "", page)
 
             if (response.isSuccessful) {
                 response.body()?.let {

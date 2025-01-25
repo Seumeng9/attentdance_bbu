@@ -7,14 +7,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bbu.attendancetracking.MyApplication
-import com.bbu.attendancetracking.R
-import com.bbu.attendancetracking.data.LocalStorageHelper
-import com.bbu.attendancetracking.data.model.LoginResponse
 import com.bbu.attendancetracking.databinding.FragmentProfileBinding
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
+import com.bbu.attendancetracking.model.LoginResponse
 import com.bbu.attendancetracking.ui.login.LoginActivity
 
 class ProfileFragment : Fragment() {

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bbu.attendancetracking.R
-import com.bbu.attendancetracking.data.model.RecyclerViewItem
+import com.bbu.attendancetracking.model.RecyclerViewItem
 
 class MultiTypeAdapter(private var items: List<RecyclerViewItem>,
 

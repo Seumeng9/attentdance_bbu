@@ -1,15 +1,12 @@
 package com.bbu.attendancetracking.ui.scanqr
 
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bbu.attendancetracking.MyApplication
-import com.bbu.attendancetracking.data.LocalStorageHelper
-import com.bbu.attendancetracking.repository.ApiRepository
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
+import com.bbu.attendancetracking.repository.AttendantRepository
 
 class ScanQrViewModel : ViewModel() {
 
@@ -24,7 +21,7 @@ class ScanQrViewModel : ViewModel() {
             Log.d("API CALL:", classId.toString())
 
             var userId: Int? = LocalStorageHelper.getLoginResponse(MyApplication.instance.applicationContext)?.user?.user_id;
-            val response = ApiRepository().submitAttendance(classId, userId?:0)
+            val response = AttendantRepository().submitAttendance(classId, userId?:0)
 
             if (response.isSuccessful) {
                 response.body()?.let {

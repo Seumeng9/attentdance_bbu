@@ -1,7 +1,7 @@
-package com.bbu.attendancetracking.data
+package com.bbu.attendancetracking.helpers
 
 import android.content.Context
-import com.bbu.attendancetracking.data.model.LoginResponse
+import com.bbu.attendancetracking.model.LoginResponse
 import com.google.gson.Gson
 
 class LocalStorageHelper {
