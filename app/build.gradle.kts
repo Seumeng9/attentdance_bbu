@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.bbu.attendancetracking"
-    compileSdk = 34
+    compileSdk = 35
 
     viewBinding {
         enable = true
@@ -16,7 +16,8 @@ android {
     defaultConfig {
         applicationId = "com.bbu.attendancetracking"
         minSdk = 24
-        targetSdk = 33
+        //noinspection EditedTargetSdkVersion
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 

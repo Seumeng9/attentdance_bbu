@@ -11,15 +11,10 @@ import com.google.zxing.common.BitMatrix
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
-import android.util.TypedValue
 import android.view.Window
 import android.view.WindowManager
-import androidx.navigation.findNavController
 import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
-import com.bbu.attendancetracking.data.model.RecyclerViewItem
-
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 
 class GenerateQrActivity : AppCompatActivity() {
 

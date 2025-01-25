@@ -2,7 +2,7 @@ package com.bbu.attendancetracking.api
 
 import android.util.Log
 import com.bbu.attendancetracking.MyApplication
-import com.bbu.attendancetracking.data.LocalStorageHelper
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
 import okhttp3.Interceptor
 import okhttp3.Response
 

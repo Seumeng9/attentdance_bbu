@@ -1,4 +1,4 @@
-package com.bbu.attendancetracking.data.model
+package com.bbu.attendancetracking.model
 
 import com.google.gson.annotations.SerializedName
 

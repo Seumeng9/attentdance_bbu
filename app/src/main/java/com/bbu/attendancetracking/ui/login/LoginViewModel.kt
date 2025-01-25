@@ -1,20 +1,15 @@
 package com.bbu.attendancetracking.ui.login
 
-import android.graphics.ColorSpace
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
 import androidx.lifecycle.viewModelScope
-import com.bbu.attendancetracking.MyApplication
-import com.bbu.attendancetracking.data.LoginRepository
-import com.bbu.attendancetracking.data.Result
-
 import com.bbu.attendancetracking.R
-import com.bbu.attendancetracking.data.LocalStorageHelper
-import com.bbu.attendancetracking.data.model.LoginResponse
+import com.bbu.attendancetracking.helpers.Result
+import com.bbu.attendancetracking.model.LoginResponse
+import com.bbu.attendancetracking.repository.LoginRepository
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 

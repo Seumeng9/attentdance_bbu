@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -16,10 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
-import com.bbu.attendancetracking.data.LocalStorageHelper
-import com.bbu.attendancetracking.data.model.LoginResponse
-import com.bbu.attendancetracking.data.model.RecyclerViewItem
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
 import com.bbu.attendancetracking.databinding.FragmentHomeBinding
+import com.bbu.attendancetracking.model.LoginResponse
+import com.bbu.attendancetracking.model.RecyclerViewItem
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

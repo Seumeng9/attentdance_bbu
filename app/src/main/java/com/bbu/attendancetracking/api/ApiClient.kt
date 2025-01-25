@@ -32,4 +32,12 @@ object ApiClient {
     val apiService: ApiService by lazy {
         retrofit.create(ApiService::class.java)
     }
+
+    val classService: ClassService by lazy {
+        retrofit.create(ClassService::class.java)
+    }
+
+    val attendantService: AttendantService by lazy {
+        retrofit.create(AttendantService::class.java)
+    }
 }

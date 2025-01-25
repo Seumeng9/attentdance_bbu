@@ -1,6 +1,7 @@
-package com.bbu.attendancetracking.data.model
+package com.bbu.attendancetracking.model
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+
 sealed class RecyclerViewItem {
     @Parcelize
     data class Header(val title: String) : RecyclerViewItem(), Parcelable
