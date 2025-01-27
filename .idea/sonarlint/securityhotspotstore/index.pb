@@ -91,3 +91,5 @@ y
 Iapp/src/main/java/com/bbu/attendancetracking/ui/scanqr/ScanQrViewModel.kt,c/7/c73f0407f91036006e197f0dda0d9f51b2a54ace
 x
 Happ/src/main/java/com/bbu/attendancetracking/ui/scanqr/ScanQrFragment.kt,2/7/275c2881528622cc45490ac710b69da948fdbe04
+s
+Capp/src/main/java/com/bbu/attendancetracking/data/model/Register.kt,9/d/9d6bc743e176503104e048defca6f773c7531265

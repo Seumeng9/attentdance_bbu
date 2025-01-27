@@ -8,3 +8,6 @@ data class AttendanceResponse(
     val first_nm: String,
     val last_nm: String
 )
+
+
+data class ApiResponseString(val message: String)

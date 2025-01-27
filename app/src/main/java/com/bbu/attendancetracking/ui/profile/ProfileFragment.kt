@@ -38,7 +38,7 @@ class ProfileFragment : Fragment() {
 
         var loginDetails: LoginResponse? = LocalStorageHelper.getLoginResponse(MyApplication.instance.applicationContext)
 
-        binding.profileName.text = loginDetails?.user?.firstName + loginDetails?.user?.firstName
+        binding.profileName.text = loginDetails?.user?.firstName + " " + loginDetails?.user?.lastName
         binding.profileEmail.text = loginDetails?.user?.email
 
 

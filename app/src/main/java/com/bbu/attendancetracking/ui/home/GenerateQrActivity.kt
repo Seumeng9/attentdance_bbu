@@ -38,8 +38,6 @@ class GenerateQrActivity : AppCompatActivity() {
         val classId = intent.getIntExtra("classId", -1)
 
 
-
-
         // Inflate the layout using ViewBinding
         binding = ActivityGenerateQrBinding.inflate(layoutInflater)
         setContentView(binding.root)

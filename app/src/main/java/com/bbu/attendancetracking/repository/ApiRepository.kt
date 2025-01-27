@@ -3,10 +3,13 @@ package com.bbu.attendancetracking.repository
 
 
 import android.graphics.ColorSpace.Model
+import android.util.Log
 import android.view.PixelCopy.Request
 import com.bbu.attendancetracking.api.ApiClient
+import com.bbu.attendancetracking.data.model.ApiResponseString
 import com.bbu.attendancetracking.data.model.AttendanceResponse
 import com.bbu.attendancetracking.data.model.ClassResponse
+import com.bbu.attendancetracking.ui.signup.User
 import com.google.gson.Gson
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -15,15 +18,6 @@ class ApiRepository {
 
     private val apiService = ApiClient.apiService
 
-    // Function to make a GET request
-    suspend fun getData(): Response<Model> {
-        return apiService.getData()
-    }
-
-    // Function to make a POST request
-//    suspend fun postData(requestBody: Model): Response<Model> {
-//        return apiService.po(requestBody)
-//    }
 
     suspend fun getListClass(
         limit: String,
@@ -32,19 +26,25 @@ class ApiRepository {
     ): Response<ClassResponse> {
         return apiService.getClassList(limit, filter, page)
     }
+    
 
-//    "classes_id": 0,
-//    "user_id": 0
-
-    suspend fun submitAttendance(classId: Int, userId: Int): Response<AttendanceResponse> {
+    suspend fun submitAttendance(classId: Int, userId: Int, lat: String, long: String): String {
 
         val requestBody = mapOf(
             "classes_id" to classId,
             "user_id" to userId
         )
 
+        var r = apiService.submitAttendance(requestBody,lat, long )
 
-        return apiService.submitAttendance(requestBody)
+        Log.d("Resp: ", r)
+
+
+        return r
+    }
+
+    suspend fun register(user: User): Response<String> {
+        return apiService.register(user)
     }
 
 }

@@ -1,14 +1,14 @@
 
-Ukotlin:S1144©"5Remove this unused private "updateUiWithUser" method.(ğ¼§ 8Èğâ»È2
-Tkotlin:S1144´"4Remove this unused private "showLoginFailed" method.(éïÖ8Éğâ»È2
-Lkotlin:S108|")Either remove or fill this block of code.(€¸¦’üÿÿÿÿ8»ùÇÅÈ2
-Rkotlin:S1135¬"2Complete the task associated to this TODO comment.(’”´×8Ëğâ»È2
-Ukotlin:S1481«"0Remove this unused "displayName" local variable.(¬ìíÆıÿÿÿÿ8Ëğâ»È2
-Qkotlin:S1481ª",Remove this unused "welcome" local variable.(Á™ø¿øÿÿÿÿ8Ëğâ»È2
-8kotlin:S1128"Remove this unused import.(îâœu8Ìğâ»È2
-9kotlin:S1128"Remove this unused import.(Üº¸¡8Ìğâ»È2
->kotlin:S1128"Remove this unused import.(™¬±öúÿÿÿÿ8Ìğâ»È2
-vkotlin:S3776&"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(¶Á»¬şÿÿÿÿ8Íğâ»È2
-kotlin:S1186Â"ZAdd a nested comment explaining why this function is empty or complete the implementation.(‹ŸÙıÿÿÿÿ8Îğâ»È2
-kotlin:S1186Ä"ZAdd a nested comment explaining why this function is empty or complete the implementation.(²•—£ıÿÿÿÿ8Îğâ»È2
-Mkotlin:S10668".Merge this "if" statement with the nested one.(˜ºŞ­8Îğâ»È2
+Ukotlin:S1144¯"5Remove this unused private "updateUiWithUser" method.(ğ¼§ 8×ä¬íÉ2
+Tkotlin:S1144º"4Remove this unused private "showLoginFailed" method.(éïÖ8Øä¬íÉ2
+Lkotlin:S108|")Either remove or fill this block of code.(€¸¦’üÿÿÿÿ8Úä¬íÉ2
+Rkotlin:S1135²"2Complete the task associated to this TODO comment.(’”´×8Ûä¬íÉ2
+Ukotlin:S1481±"0Remove this unused "displayName" local variable.(¬ìíÆıÿÿÿÿ8Üä¬íÉ2
+Qkotlin:S1481°",Remove this unused "welcome" local variable.(Á™ø¿øÿÿÿÿ8Şä¬íÉ2
+8kotlin:S1128"Remove this unused import.(îâœu8ßä¬íÉ2
+9kotlin:S1128"Remove this unused import.(Üº¸¡8ßä¬íÉ2
+>kotlin:S1128"Remove this unused import.(™¬±öúÿÿÿÿ8ßä¬íÉ2
+vkotlin:S3776&"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(¶Á»¬şÿÿÿÿ8áä¬íÉ2
+kotlin:S1186È"ZAdd a nested comment explaining why this function is empty or complete the implementation.(‹ŸÙıÿÿÿÿ8áä¬íÉ2
+kotlin:S1186Ê"ZAdd a nested comment explaining why this function is empty or complete the implementation.(²•—£ıÿÿÿÿ8áä¬íÉ2
+Mkotlin:S10668".Merge this "if" statement with the nested one.(˜ºŞ­8âä¬íÉ2

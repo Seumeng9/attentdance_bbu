@@ -1,14 +1,21 @@
 package com.bbu.attendancetracking.ui.signup
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
 
 class SignupActivity : AppCompatActivity() {
@@ -25,6 +32,9 @@ class SignupActivity : AppCompatActivity() {
         val firstNameField = findViewById<EditText>(R.id.firstName)
         val lastNameField = findViewById<EditText>(R.id.lastName)
         val passwordField = findViewById<EditText>(R.id.password)
+        val confirmPassField = findViewById<EditText>(R.id.confirm_pass)
+        val phoneField = findViewById<EditText>(R.id.phoneNumber)
+        val userField = findViewById<EditText>(R.id.userName)
         val roleGroup = findViewById<RadioGroup>(R.id.roleGroup)
         val signUpButton = findViewById<Button>(R.id.signUp)
 
@@ -33,11 +43,14 @@ class SignupActivity : AppCompatActivity() {
         studentRadio.isChecked = true
 
         signUpButton.setOnClickListener {
+
             val email = emailField.text.toString()
             val firstName = firstNameField.text.toString()
             val lastName = lastNameField.text.toString()
             val password = passwordField.text.toString()
             val selectedRoleId = roleGroup.checkedRadioButtonId
+            val phone = phoneField.text.toString()
+            val username = userField.text.toString()
             val selectedRole = if (selectedRoleId != -1) {
                 val roleButton = findViewById<RadioButton>(selectedRoleId)
                 Role(roleButton.text.toString(), roleButton.tag.toString().toInt())
@@ -50,17 +63,50 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if(password != confirmPassField.text.toString()) {
+                Toast.makeText(this, "Your Password Not Match", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            findViewById<ProgressBar>(R.id.loading)?.visibility = View.VISIBLE
+
             val user = User(
+
                 email = email,
                 firstName = firstName,
                 lastName = lastName,
                 password = password,
-                username = "$firstName.$lastName".lowercase(),
-                phone = "N/A", // Optional, not provided in UI
+                phone= phone,
+                username= username,
+//                username = "$firstName.$lastName".lowercase(),
                 roles = listOf(selectedRole)
             )
 
-            signupViewModel.registerUser(user)
+            lifecycleScope.launch {
+                try {
+                    // Show loading spinner before the call
+                    findViewById<ProgressBar>(R.id.loading)?.visibility = View.VISIBLE
+
+                    // Call the registerUser function and wait for it to complete
+                    var resp: Response<String>? = signupViewModel.registerUser(user)
+
+                    // Hide the loading spinner after the call completes
+                    findViewById<ProgressBar>(R.id.loading)?.visibility = View.GONE
+
+                    // Finish activity after the registration is successful
+                    if(resp?.isSuccessful == true){
+                        finish()
+                    }else {
+                        Toast.makeText(MyApplication.instance.applicationContext, resp?.errorBody()?.string() ?:"Failed to Register, Please Try Again Later", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    // Handle any exceptions
+                    findViewById<ProgressBar>(R.id.loading)?.visibility = View.GONE
+                    println("Error: ${e.localizedMessage}")
+                }
+            }
+
+
         }
 
 //        signupViewModel.signupStatus.observe(this) { status ->

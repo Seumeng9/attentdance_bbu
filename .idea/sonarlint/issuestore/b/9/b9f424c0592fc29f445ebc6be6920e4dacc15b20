@@ -1,7 +1,7 @@
 
-]kotlin:S1172*">Use "_" instead of this unused lambda parameter "shouldFetch".(áæğ8¸›ñ•É2
-Bkotlin:S1255"Remove this commented out code.(ôéÃúüÿÿÿÿ8Ş˜¤”É2
-^kotlin:S6315o"?This function returns "Deferred", but its result is never used.(ä”½Á8Òõ”É2
-^kotlin:S6315,"?This function returns "Deferred", but its result is never used.(ä”½Á8êÛ•É2
->kotlin:S1128
-"Remove this unused import.(Øîğùÿÿÿÿ8Ôõ”É2
+Bkotlin:S1252"Remove this commented out code.(åÁÊºüÿÿÿÿ8Şİ íÉ2
+^kotlin:S6315w"?This function returns "Deferred", but its result is never used.(ä”½Á8àİ íÉ2
+>kotlin:S1128"Remove this unused import.(Ôê³¨ÿÿÿÿÿ8ãİ íÉ2
+>kotlin:S1128"Remove this unused import.(èãÊõûÿÿÿÿ8ãİ íÉ2
+qkotlin:S3776V"RRefactor this method to reduce its Cognitive Complexity from 27 to the 15 allowed.(ëü«8åİ íÉ2
+zkotlin:S1186¬"ZAdd a nested comment explaining why this function is empty or complete the implementation.(İéòæ8åİ íÉ2

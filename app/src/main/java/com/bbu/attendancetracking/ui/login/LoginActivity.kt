@@ -152,6 +152,12 @@ class LoginActivity : AppCompatActivity() {
             }
 
             login.setOnClickListener {
+
+                if(username.text.isEmpty() || password.text.isEmpty()) {
+                    Toast.makeText(applicationContext, "Please Fill Your Username and Password", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
                 loading?.visibility = View.VISIBLE
 
                 loginViewModel.login(username.text.toString(), password.text.toString())

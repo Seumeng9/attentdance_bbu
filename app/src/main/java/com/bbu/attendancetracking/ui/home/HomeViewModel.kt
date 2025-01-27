@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bbu.attendancetracking.data.model.ClassItem
 import com.bbu.attendancetracking.data.model.ClassResponse
 import com.bbu.attendancetracking.data.model.RecyclerViewItem
 import com.bbu.attendancetracking.repository.ApiRepository
@@ -23,27 +24,35 @@ class HomeViewModel() : ViewModel() {
 
     val classItems: StateFlow<List<RecyclerViewItem>> get() = _classItems
 
+    var tempClassItem: List<RecyclerViewItem> = emptyList()
+
     private val _errorMessage = MutableStateFlow<String?>(null)
 
     private val _fetchDataTrigger = MutableLiveData<Boolean>()
     val fetchDataTrigger: LiveData<Boolean> = _fetchDataTrigger
 
-    private var currentPage = 1;
+    var currentPage = 1;
     val errorMessage: StateFlow<String?> get() = _errorMessage
 
     // Function to trigger API call from other fragments
     fun triggerFetchData() {
-        Log.d("Trigger:", "Trigger Fetch Data")
+        Log.d("Trigger:", "Trigger Fetch Data View Model")
         _fetchDataTrigger.value = true
+        // Launch a coroutine in the ViewModel's scope
+        viewModelScope.launch {
+            fetchClasses(page = 1)
+        }
     }
 
-    suspend fun fetchClasses(page: Int = 1) {
+    suspend fun fetchClasses(page: Int = 1, filter: String = "") {
+
+        Log.d("Call", "Call Fetch From view Model")
         if (currentPage == -1) {
             return
         }
 
         try {
-            val response = ApiRepository().getListClass("40", "", page)
+            val response = ApiRepository().getListClass("40", filter, page)
 
             if (response.isSuccessful) {
                 response.body()?.let {
@@ -58,6 +67,10 @@ class HomeViewModel() : ViewModel() {
         } catch (e: Exception) {
             _errorMessage.value = "Error: ${e.localizedMessage}"
         }
+    }
+
+    fun  updateClass(items: List<RecyclerViewItem>) {
+        _classItems.value = items
     }
 
 

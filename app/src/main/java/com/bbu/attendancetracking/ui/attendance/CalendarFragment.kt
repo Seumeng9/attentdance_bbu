@@ -13,6 +13,8 @@ import com.bbu.attendancetracking.databinding.FragmentCalendarBinding
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import com.prolificinteractive.materialcalendarview.OnMonthChangedListener
+import java.util.Calendar
 
 class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
@@ -29,11 +31,20 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
         // Set the current date
         calendarView.selectedDate = CalendarDay.today()
 
+
         // Handle date selection
         calendarView.setOnDateChangedListener(OnDateSelectedListener { _, date, _ ->
             val selectedDate = "${date.day}/${date.month + 1}/${date.year}"
             Toast.makeText(context, "Selected Date: $selectedDate", Toast.LENGTH_SHORT).show()
         })
+
+        calendarView.setOnDateChangedListener( { _, date, _ ->
+            val selectedDate = "${date.day}/${date.month + 1}/${date.year}"
+            Toast.makeText(context, "Selected Date: $selectedDate", Toast.LENGTH_SHORT).show()
+        })
+
+        // Set an OnMonthChangedListener
+
 
 //        calendarView.setOnMonthChangedListener()
 
@@ -44,6 +55,8 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
     }
 
     private fun highlightDates(calendarView: MaterialCalendarView) {
+
+
         val presentDates = listOf(
             CalendarDay.from(2025, 0, 1),  // Sample Date
             CalendarDay.from(2025, 0, 2)

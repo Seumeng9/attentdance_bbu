@@ -2,13 +2,14 @@ package com.bbu.attendancetracking.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -20,13 +21,20 @@ import com.bbu.attendancetracking.data.LocalStorageHelper
 import com.bbu.attendancetracking.data.model.LoginResponse
 import com.bbu.attendancetracking.data.model.RecyclerViewItem
 import com.bbu.attendancetracking.databinding.FragmentHomeBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
+
+    private var debounceJob: Job? = null
+
 
 
     private var _binding: FragmentHomeBinding? = null
@@ -39,23 +47,23 @@ class HomeFragment : Fragment() {
     ): View {
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
-        viewModel.fetchDataTrigger.observe(viewLifecycleOwner, Observer { shouldFetch ->
-//            if (shouldFetch) {
-                lifecycleScope.async {
-                    try {
-
-                        Log.d("Trigger", "Trigger Fetch Classes")
-                        // Trigger the API fetch in your ViewModel
-                        lifecycleScope.async {
-                            viewModel.fetchClasses()
-                        }.await()
-                    } catch (e: Exception) {
-                        // Handle the error
-//                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
-                    }
-                }
-//            }
-        })
+//        viewModel.fetchDataTrigger.observe(viewLifecycleOwner, Observer { shouldFetch ->
+////            if (shouldFetch) {
+//                lifecycleScope.async {
+//                    try {
+//
+//                        Log.d("Trigger", "Trigger Fetch Classes")
+//                        // Trigger the API fetch in your ViewModel
+//                        lifecycleScope.async {
+//                            viewModel.fetchClasses()
+//                        }.await()
+//                    } catch (e: Exception) {
+//                        // Handle the error
+////                        Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+//                    }
+//                }
+////            }
+//        })
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
@@ -66,9 +74,9 @@ class HomeFragment : Fragment() {
 
         //hide Search In Case "Teacher" Profile
 
-        binding.searchSection.visibility =
-           if (loginResponse?.user?.roles?.any { it.equals("TEACHER", ignoreCase = true) } == true)
-               View.GONE else View.VISIBLE
+//        binding.searchSection.visibility =
+//           if (loginResponse?.user?.roles?.any { it.equals("TEACHER", ignoreCase = true) } == true)
+//               View.GONE else View.VISIBLE
 
 
 
@@ -151,6 +159,62 @@ class HomeFragment : Fragment() {
 //                        binding.loading.visibility = View.GONE
                         binding.recyclerView.visibility = View.VISIBLE
                     }
+                }
+            }
+        })
+
+
+        // Access your EditText from the fragment layout
+        val searchText: EditText = binding.searchTextField
+
+        // Add TextWatcher to the EditText
+        searchText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Cancel any ongoing job
+                debounceJob?.cancel()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                debounceJob?.cancel() // Cancel previous job if a new change occurs
+                debounceJob = lifecycleScope.launch {
+                    delay(2000) // Wait for 2 seconds of inactivity
+
+                    val inputText = s.toString()
+
+                    println("Debounced Input: $inputText")
+
+                    if(viewModel.tempClassItem.isEmpty() && inputText.isEmpty()) {
+                        return@launch
+                    }
+
+
+
+                    if(inputText.isNotEmpty()) {
+                        binding.loading.visibility = View.VISIBLE
+                        binding.recyclerView.visibility = View.GONE
+
+                        try {
+                            viewModel.currentPage = 1
+                            viewModel.fetchClasses(page = 1, filter = inputText)
+                        } catch (e: Exception) {
+                            println("Error fetching classes: ${e.message}")
+                        }
+                    }else {
+                        viewModel.updateClass(viewModel.tempClassItem)
+                        viewModel.tempClassItem = emptyList()
+                        return@launch
+                    }
+
+                    if(viewModel.tempClassItem.isEmpty()) {
+                        viewModel.tempClassItem = viewModel.classItems.value
+                    }
+
+                    println("after Debounced Input: $inputText")
+
+                    binding.loading.visibility = View.GONE
+                    binding.recyclerView.visibility = View.VISIBLE
                 }
             }
         })
