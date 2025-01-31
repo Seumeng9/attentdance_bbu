@@ -5,12 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bbu.attendancetracking.R
-import com.bbu.attendancetracking.data.model.ClassItem
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.bbu.attendancetracking.model.ClassItem
 
 class ClassAdapter(private val classList: List<ClassItem>) :
     RecyclerView.Adapter<ClassAdapter.ClassViewHolder>() {

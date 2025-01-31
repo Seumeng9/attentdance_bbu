@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,13 +18,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
-import com.bbu.attendancetracking.data.LocalStorageHelper
-import com.bbu.attendancetracking.data.model.LoginResponse
-import com.bbu.attendancetracking.data.model.RecyclerViewItem
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
 import com.bbu.attendancetracking.databinding.FragmentHomeBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+
+import com.bbu.attendancetracking.model.LoginResponse
+import com.bbu.attendancetracking.model.RecyclerViewItem
 import kotlinx.coroutines.Job
+
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest

@@ -1,14 +1,11 @@
-package com.bbu.attendancetracking.data
+package com.bbu.attendancetracking.repository
 
-import android.graphics.ColorSpace.Model
 import android.util.Log
-import android.widget.Toast
 import com.bbu.attendancetracking.api.ApiClient
-import com.bbu.attendancetracking.api.ApiService
-import com.bbu.attendancetracking.data.model.LoggedInUser
-import com.bbu.attendancetracking.data.model.LoginRequest
-import com.bbu.attendancetracking.data.model.LoginResponse
-import okhttp3.ResponseBody
+import com.bbu.attendancetracking.helpers.Result
+import com.bbu.attendancetracking.model.LoggedInUser
+import com.bbu.attendancetracking.model.LoginRequest
+import com.bbu.attendancetracking.model.LoginResponse
 
 /**
  * Class that requests authentication and user information from the remote data source and

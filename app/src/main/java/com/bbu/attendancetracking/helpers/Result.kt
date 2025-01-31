@@ -1,4 +1,4 @@
-package com.bbu.attendancetracking.data
+package com.bbu.attendancetracking.helpers
 
 /**
  * A generic class that holds a value with its loading status.

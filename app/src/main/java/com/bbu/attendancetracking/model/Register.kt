@@ -1,4 +1,4 @@
-package com.bbu.attendancetracking.data.model
+//package com.bbu.attendancetracking.data.model
 
 //data class Role(
 //    val role: String,
