@@ -2,6 +2,7 @@ package com.bbu.attendancetracking.ui.attendance
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.bbu.attendancetracking.ui.attendance.report.ReportFragment
 
 class AttendancePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 2 // We have 2 tabs

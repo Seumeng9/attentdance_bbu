@@ -14,4 +14,5 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="student_report">Stuent Report</string>
+    <string name="attendance">Attendance</string>
 </resources>

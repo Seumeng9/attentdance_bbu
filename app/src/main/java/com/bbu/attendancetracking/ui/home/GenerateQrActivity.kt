@@ -16,6 +16,7 @@ import android.view.Window
 import android.view.WindowManager
 import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
 import com.bbu.attendancetracking.ui.home.student_report.StudentReportActivity
 
 class GenerateQrActivity : AppCompatActivity() {
@@ -63,14 +64,22 @@ class GenerateQrActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        if(LocalStorageHelper.getGeneratedQrClassId() == classId) {
+            generateQrCode(classId)
+        }
+
+        LocalStorageHelper.saveGeneratedQrClassId(classId)
+
         // Handle the button click for generating the QR code
         binding.generateQrButton.setOnClickListener {
-            val qrContent = "My QR Code For Scan Submit Attendance  CLASS_ID:$classId , Use This For Submit to API" // Replace with the content you want in the QR code
-            generateQrCode(qrContent)
+            generateQrCode(classId)
         }
     }
 
-    private fun generateQrCode(content: String) {
+    private fun generateQrCode(classId: Int) {
+
+        val content = "My QR Code For Scan Submit Attendance  CLASS_ID:$classId , Use This For Submit to API" // Replace with the content you want in the QR code
+
         try {
             val qrCodeWriter = QRCodeWriter()
             val size = 800 // Increase resolution for better scannability

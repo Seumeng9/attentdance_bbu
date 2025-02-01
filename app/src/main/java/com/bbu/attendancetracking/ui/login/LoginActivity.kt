@@ -106,6 +106,7 @@ class LoginActivity : AppCompatActivity() {
 
                     LocalStorageHelper.saveLoginResponse(MyApplication.instance.applicationContext, result.data)
                     LocalStorageHelper.saveToken(MyApplication.instance.applicationContext, result.data?.access_token ?: "")
+                    LocalStorageHelper.saveGeneratedQrClassId(0)
 
 
                     // Navigate to MainActivity

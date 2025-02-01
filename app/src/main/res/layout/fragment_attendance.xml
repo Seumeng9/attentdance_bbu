@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Attendance"
+            android:text="@string/attendance"
             android:gravity="center"
             android:textColor="@android:color/white"
             android:textSize="18sp"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabSelectedTextColor="@color/colorPrimary"
-        app:tabTextColor="@color/colorOnPrimary"/>
+        app:tabTextColor="@color/black"/>
 
     <!-- ViewPager2 for Switching Between Calendar and Report -->
     <androidx.viewpager2.widget.ViewPager2

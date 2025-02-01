@@ -1,6 +1,7 @@
 package com.bbu.attendancetracking.helpers
 
 import android.content.Context
+import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.model.LoginResponse
 import com.google.gson.Gson
 
@@ -42,6 +43,21 @@ class LocalStorageHelper {
             val token = sharedPreferences.getString("token", "")
 
             return token?:""
+        }
+
+        fun saveGeneratedQrClassId(id: Int) {
+            val sharedPreferences = MyApplication.instance.applicationContext.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+
+            editor.putInt("classGeneratedQrId", id)
+            editor.apply()
+        }
+
+        fun  getGeneratedQrClassId(): Int {
+            val sharedPreferences = MyApplication.instance.applicationContext.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+            val id = sharedPreferences.getInt("classGeneratedQrId", 0)
+
+            return id
         }
     }
 }

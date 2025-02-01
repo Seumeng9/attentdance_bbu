@@ -3,10 +3,12 @@ package com.bbu.attendancetracking.ui.profile
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bbu.attendancetracking.MyApplication
@@ -14,11 +16,22 @@ import com.bbu.attendancetracking.databinding.FragmentProfileBinding
 import com.bbu.attendancetracking.helpers.LocalStorageHelper
 import com.bbu.attendancetracking.model.LoginResponse
 import com.bbu.attendancetracking.ui.login.LoginActivity
+import com.bumptech.glide.Glide
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+
+    // Activity Result Launcher to pick an image
+    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            // Load selected image into ShapeableImageView using Glide
+            Glide.with(this)
+                .load(it)
+                .into(binding.imageView)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,6 +66,10 @@ class ProfileFragment : Fragment() {
             val intent = Intent(requireActivity(), LoginActivity::class.java)
             startActivity(intent)
             requireActivity().finish() // Close MainActivity}
+        }
+
+        binding.imageView.setOnClickListener{
+            pickImageLauncher.launch("image/*")
         }
 
         return root
