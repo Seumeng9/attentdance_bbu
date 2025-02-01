@@ -13,6 +13,35 @@
         android:layout_height="wrap_content"
         layout="@layout/custom_app_bar_scan" />
 
+
+    <TextView
+        android:id="@+id/classTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_margin="20dp"
+        app:layout_constraintTop_toBottomOf="@id/custom_app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/classDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/classTitle"
+        app:layout_constraintEnd_toEndOf="@+id/classTitle"
+        app:layout_constraintEnd_toStartOf="@+id/classTitle"
+        app:layout_constraintStart_toStartOf="@id/classTitle">
+
+    </TextView>
+
     <!-- QR ImageView -->
     <android.widget.ImageView
         android:id="@+id/qrImageView"
@@ -21,7 +50,7 @@
         android:layout_marginTop="16dp"
         android:padding="16dp"
         android:scaleType="fitCenter"
-        app:layout_constraintTop_toBottomOf="@id/custom_app_bar"
+        app:layout_constraintTop_toBottomOf="@id/classDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/generateQrButton" />
@@ -31,7 +60,10 @@
         android:id="@+id/generateQrButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Generate QR Code"
+        android:paddingHorizontal="40dp"
+        android:background="@drawable/rounded_corner_bg_green"
+        android:textColor="@color/white"
+        android:text="Generate"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/qrImageView"
         app:layout_constraintStart_toStartOf="parent"

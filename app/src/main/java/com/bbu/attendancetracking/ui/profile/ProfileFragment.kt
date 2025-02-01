@@ -40,6 +40,9 @@ class ProfileFragment : Fragment() {
         binding.profileEmail.text = loginDetails?.user?.email
 
 
+        binding.profileId.text = (loginDetails?.user?.user_id ?: 123456).toString()
+
+
 
         binding.logoutButton.setOnClickListener{
             val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)

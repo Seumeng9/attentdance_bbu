@@ -1,5 +1,6 @@
 package com.bbu.attendancetracking.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import android.view.Window
 import android.view.WindowManager
 import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
+import com.bbu.attendancetracking.ui.home.student_report.StudentReportActivity
 
 class GenerateQrActivity : AppCompatActivity() {
 
@@ -31,6 +33,8 @@ class GenerateQrActivity : AppCompatActivity() {
         }
 
         val classId = intent.getIntExtra("classId", -1)
+        val title = intent.getStringExtra("classTitle");
+        val scheduleClass = intent.getStringExtra("classSchedule");
 
 
         // Inflate the layout using ViewBinding
@@ -39,9 +43,24 @@ class GenerateQrActivity : AppCompatActivity() {
 
         binding.customAppBar.title.text = "Qr Generator"
 
+        binding.classTitle.text = title
+
+        binding.classDate.text = scheduleClass
+
 
         binding.customAppBar.backButton.setOnClickListener{
             finish()
+        }
+
+        binding.classTitle.setOnClickListener{
+            val intent = Intent(this, StudentReportActivity::class.java)
+
+            intent.putExtra("classId", classId)
+            intent.putExtra("classTitle", title)
+            intent.putExtra("classSchedule", scheduleClass)
+
+
+            startActivity(intent)
         }
 
         // Handle the button click for generating the QR code

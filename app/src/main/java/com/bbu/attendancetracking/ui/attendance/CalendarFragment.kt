@@ -2,6 +2,7 @@ package com.bbu.attendancetracking.ui.attendance
 
 import EventDecorator
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,14 +35,17 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
         // Handle date selection
         calendarView.setOnDateChangedListener(OnDateSelectedListener { _, date, _ ->
-            val selectedDate = "${date.day}/${date.month + 1}/${date.year}"
-            Toast.makeText(context, "Selected Date: $selectedDate", Toast.LENGTH_SHORT).show()
+
+            calendarView.selectedDate = CalendarDay.today()
+//            val selectedDate = "${date.day}/${date.month + 1}/${date.year}"
+//            Toast.makeText(context, "Selected Date: $selectedDate", Toast.LENGTH_SHORT).show()
         })
 
-        calendarView.setOnDateChangedListener( { _, date, _ ->
-            val selectedDate = "${date.day}/${date.month + 1}/${date.year}"
-            Toast.makeText(context, "Selected Date: $selectedDate", Toast.LENGTH_SHORT).show()
-        })
+        calendarView.setOnMonthChangedListener { _, date ->
+            val month = date.month
+            val year = date.year
+            Log.d("Month Changed", "New Month: $month, New Year: $year")
+        }
 
         // Set an OnMonthChangedListener
 

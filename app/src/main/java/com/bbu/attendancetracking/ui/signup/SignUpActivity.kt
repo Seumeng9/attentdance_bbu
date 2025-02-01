@@ -1,6 +1,7 @@
 package com.bbu.attendancetracking.ui.signup
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -13,8 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
-import kotlinx.coroutines.async
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import retrofit2.Response
 
 
@@ -68,6 +70,8 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            LocalStorageHelper.saveToken(MyApplication.instance.applicationContext, "")
+
             findViewById<ProgressBar>(R.id.loading)?.visibility = View.VISIBLE
 
             val user = User(
@@ -97,7 +101,15 @@ class SignupActivity : AppCompatActivity() {
                     if(resp?.isSuccessful == true){
                         finish()
                     }else {
-                        Toast.makeText(MyApplication.instance.applicationContext, resp?.errorBody()?.string() ?:"Failed to Register, Please Try Again Later", Toast.LENGTH_SHORT).show()
+//                        Log.d("resp signup:", "${resp?.errorBody().toString().}")
+
+
+                        val errorBody = resp?.errorBody()?.string() // Read the response body as string
+
+                        val message = JSONObject(errorBody).getString("message")
+
+
+                        Toast.makeText(MyApplication.instance.applicationContext, message?:"Failed to Register, Please Try Again Later", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: Exception) {
                     // Handle any exceptions

@@ -35,6 +35,12 @@
             android:theme="@style/LoginTheme"
             android:label="@string/title_activity_login" />
 
+        <activity
+            android:name=".ui.home.student_report.StudentReportActivity"
+            android:exported="false"
+            android:theme="@style/LoginTheme"
+            android:label="Student Report" />
+
         <activity android:name= ".ui.home.GenerateQrActivity"
             android:exported="false"
             android:theme="@style/LoginTheme"

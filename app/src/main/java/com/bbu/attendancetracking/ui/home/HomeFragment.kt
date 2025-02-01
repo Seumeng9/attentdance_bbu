@@ -101,6 +101,8 @@ class HomeFragment : Fragment() {
                     if((loginDetails?.user?.roles?.any { it.equals("TEACHER", ignoreCase = true) } == true)) {
                         val intent = Intent(requireActivity(), GenerateQrActivity::class.java)
                         intent.putExtra("classId", item.classId)
+                        intent.putExtra("classTitle", item.title)
+                        intent.putExtra("classSchedule", item.scheduled)
                         startActivity(intent)
                     }else {
                         findNavController().navigate(R.id.navigation_scan_qr)
