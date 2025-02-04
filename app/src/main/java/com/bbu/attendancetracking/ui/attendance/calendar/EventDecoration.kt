@@ -1,5 +1,6 @@
+package com.bbu.attendancetracking.ui.attendance.calendar
+
 import android.graphics.drawable.GradientDrawable
-import android.graphics.Color
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.CalendarDay

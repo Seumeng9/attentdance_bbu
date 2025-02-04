@@ -13,14 +13,14 @@ class AuthInterceptor() : Interceptor {
 
 
 
-        val token = LocalStorageHelper.getToken(MyApplication.instance.applicationContext)
+        val token = LocalStorageHelper.getToken()
 
         Log.d("Auth INtercep", "$token")
 
         // Create a new request by adding the Authorization header on top of the original headers
         val newRequest = if (token != null) {
             originalRequest.newBuilder()
-                .addHeader("Authorization", "Bearer $token") // Add, not replace
+                .addHeader("Authorization", "$token") // Add, not replace
                 .addHeader("accept", "*/*")
                 .addHeader("Content-Type", "application/json")
                 .build()

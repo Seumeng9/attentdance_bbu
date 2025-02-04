@@ -28,32 +28,9 @@ class ClassAdapter(private val classList: List<ClassItem>) :
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.class_item, parent, false)
 
-        val imageView = view.findViewById<ImageView>(R.id.scanQRIcon)
-
-        imageView.setOnClickListener {
-            // Your code to handle the click event
-//            val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-            print("cliccked")
-
-//            val bottomNavigationView = view.findViewById<BottomNavigationView>(R.id.bb)
+//        val imageView = view.findViewById<ImageView>(R.id.scanQRIcon)
 
 
-//            bottomNavigationView.selectedItemId = R.id.scanQRIcon
-
-//            Toast.makeText(parent.context, "Your message here", Toast.LENGTH_SHORT).show()
-
-
-
-
-            // Set the selected tab programmatically by item ID
-//            var bottomNavigationView = parent.findViewById<BottomNavigationView>(R.id.nav_view)
-//
-//            // Set the selected item programmatically
-//
-//            if (bottomNavigationView.isActivated) {
-//                bottomNavigationView.selectedItemId = R.id.navigation_dashboard
-//            }
-        }
 
 
         return ClassViewHolder(view)

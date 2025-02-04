@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()  // Hide the default ActionBar
 
         var loginDetails: LoginResponse? =
-            LocalStorageHelper.getLoginResponse(MyApplication.instance.applicationContext)
+            LocalStorageHelper.getLoginResponse()
 
 
         Log.d("AAAA", "loginDetails?.user?.roles: ${loginDetails?.user?.roles}")

@@ -71,8 +71,10 @@ class MultiTypeAdapter(private var items: List<RecyclerViewItem>,
     // ViewHolder for class items
     inner class ClassItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val title: TextView = itemView.findViewById(R.id.title)
+        private val des: TextView = itemView.findViewById(R.id.desc)
         private val lab: TextView = itemView.findViewById(R.id.lab)
         private val date: TextView = itemView.findViewById(R.id.date)
+
 
         init {
             // Set click listener for the entire item (root view of the item)
@@ -83,6 +85,7 @@ class MultiTypeAdapter(private var items: List<RecyclerViewItem>,
 
         fun bind(classItem: RecyclerViewItem.ClassItem) {
             title.text = classItem.title
+            des.text = classItem.desc
             lab.text = classItem.labNo
             date.text = classItem.scheduled
         }

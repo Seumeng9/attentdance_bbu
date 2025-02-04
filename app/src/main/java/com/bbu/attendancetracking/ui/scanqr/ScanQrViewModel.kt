@@ -24,7 +24,7 @@ class ScanQrViewModel : ViewModel() {
         try {
             Log.d("API CALL:", classId.toString())
 
-            var userId: Int? = LocalStorageHelper.getLoginResponse(MyApplication.instance.applicationContext)?.user?.user_id;
+            var userId: Int? = LocalStorageHelper.getLoginResponse()?.user?.user_id;
 
             val response = AttendantRepository().submitAttendance(classId, userId?:0, lat, long)
 

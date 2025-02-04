@@ -27,6 +27,17 @@ class ProfileFragment : Fragment() {
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
             // Load selected image into ShapeableImageView using Glide
+            LocalStorageHelper.saveImageUri(it.toString())//save image to local storage
+            Glide.with(this)
+                .load(it)
+                .into(binding.imageView)
+        }
+    }
+
+    //load image from share preference
+    private fun loadSavedImage() {
+        val savedUri = LocalStorageHelper.getImageUri()
+        savedUri?.let {
             Glide.with(this)
                 .load(it)
                 .into(binding.imageView)
@@ -47,7 +58,7 @@ class ProfileFragment : Fragment() {
 //            binding.textProfile.text = it
 //        }
 
-        var loginDetails: LoginResponse? = LocalStorageHelper.getLoginResponse(MyApplication.instance.applicationContext)
+        var loginDetails: LoginResponse? = LocalStorageHelper.getLoginResponse()
 
         binding.profileName.text = loginDetails?.user?.firstName + " " + loginDetails?.user?.lastName
         binding.profileEmail.text = loginDetails?.user?.email
@@ -67,6 +78,8 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
             requireActivity().finish() // Close MainActivity}
         }
+        //load image from local storage
+        loadSavedImage()
 
         binding.imageView.setOnClickListener{
             pickImageLauncher.launch("image/*")

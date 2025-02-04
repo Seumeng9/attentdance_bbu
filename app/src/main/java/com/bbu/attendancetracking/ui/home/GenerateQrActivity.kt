@@ -68,11 +68,12 @@ class GenerateQrActivity : AppCompatActivity() {
             generateQrCode(classId)
         }
 
-        LocalStorageHelper.saveGeneratedQrClassId(classId)
+
 
         // Handle the button click for generating the QR code
         binding.generateQrButton.setOnClickListener {
             generateQrCode(classId)
+            LocalStorageHelper.saveGeneratedQrClassId(classId)
         }
     }
 

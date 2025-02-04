@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-       var loginResponse: LoginResponse? = LocalStorageHelper.getLoginResponse(MyApplication.instance.applicationContext)
+       var loginResponse: LoginResponse? = LocalStorageHelper.getLoginResponse()
 
         binding.customAppBar.profileName.text = loginResponse?.user?.lastName
 
@@ -96,7 +96,7 @@ class HomeFragment : Fragment() {
                 is RecyclerViewItem.ClassItem -> {
                     println("ClassItem - Title: ${item.classId}")
 
-                    var loginDetails: LoginResponse? = LocalStorageHelper.getLoginResponse(MyApplication.instance.applicationContext)
+                    var loginDetails: LoginResponse? = LocalStorageHelper.getLoginResponse()
 
                     if((loginDetails?.user?.roles?.any { it.equals("TEACHER", ignoreCase = true) } == true)) {
                         val intent = Intent(requireActivity(), GenerateQrActivity::class.java)

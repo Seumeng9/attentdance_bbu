@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.bbu.attendancetracking"
-        minSdk = 24
+        minSdk = 26
         //noinspection EditedTargetSdkVersion
         targetSdk = 34
         versionCode = 1
@@ -80,11 +80,10 @@ dependencies {
     //location (get lat,long)
     implementation ("com.google.android.gms:play-services-location:18.0.0")
 
-
-
     //logger api
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
-    //accept string resp
+
+    //accept string response
     implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
 
     //calendar
@@ -93,9 +92,7 @@ dependencies {
             exclude(group = "com.android.support", module = "support-compat")
         }
     }
-
     //image load
-
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 

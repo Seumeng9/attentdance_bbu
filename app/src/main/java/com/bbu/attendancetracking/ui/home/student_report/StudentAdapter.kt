@@ -8,10 +8,11 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bbu.attendancetracking.R
+import com.bbu.attendancetracking.model.ClassItem
 
 class StudentAdapter(
-    private val students: List<Student>,
-    private val onStatusChange: (Int, AttendanceStatus) -> Unit
+    private var students: List<Student>,
+    private val onStatusChange: (Int, String) -> Unit
 ) : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
 
     inner class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -25,17 +26,17 @@ class StudentAdapter(
             radioGroup.setOnCheckedChangeListener(null)
 
             when (student.status) {
-                AttendanceStatus.PRESENT -> radioGroup.check(R.id.rbPresent)
-                AttendanceStatus.LATE -> radioGroup.check(R.id.rbLate)
-                AttendanceStatus.ABSENT -> radioGroup.check(R.id.rbAbsent)
+                AttendanceStatus.present.name -> radioGroup.check(R.id.rbPresent)
+                AttendanceStatus.late.name -> radioGroup.check(R.id.rbLate)
+                AttendanceStatus.absent.name -> radioGroup.check(R.id.rbAbsent)
             }
 
             radioGroup.setOnCheckedChangeListener { _, checkedId ->
                 val status = when (checkedId) {
-                    R.id.rbPresent -> AttendanceStatus.PRESENT
-                    R.id.rbLate -> AttendanceStatus.LATE
-                    R.id.rbAbsent -> AttendanceStatus.ABSENT
-                    else -> AttendanceStatus.ABSENT
+                    R.id.rbPresent -> AttendanceStatus.present.name
+                    R.id.rbLate -> AttendanceStatus.late.name
+                    R.id.rbAbsent -> AttendanceStatus.absent.name
+                    else -> AttendanceStatus.absent.name
                 }
                 onStatusChange(position, status)
             }
@@ -45,6 +46,11 @@ class StudentAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_student_report, parent, false)
         return StudentViewHolder(view)
+    }
+
+    fun updateData(newList: List<Student>) {
+        this.students = newList
+        notifyDataSetChanged()  // Notify RecyclerView to refresh
     }
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {

@@ -1,18 +1,46 @@
 package com.bbu.attendancetracking.ui.attendance.report
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bbu.attendancetracking.model.ClassItem
+import com.bbu.attendancetracking.repository.ClassRepository
 
 class ReportAttendanceViewModel: ViewModel() {
 
     private val _classList = MutableLiveData<List<ClassItem>>()
     val classList: LiveData<List<ClassItem>> = _classList
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
-    init {
-        _classList.value = generateClassItems()
+
+//    init {
+//        _classList.value = generateClassItems()
+//    }
+
+    suspend fun fetchClasses() {
+
+        if (classList.value?.isNotEmpty() == true){
+            return
+        }
+
+        _isLoading.value = true
+
+        try {
+            val response = ClassRepository().getAllClass()
+
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    _classList.value = response.body()
+                }
+            }
+        } catch (e: Exception) {
+            Log.d("Error Fetch All Class", "Error")
+        }finally {
+            _isLoading.value = false
+        }
     }
 
 

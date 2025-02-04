@@ -11,6 +11,7 @@ sealed class RecyclerViewItem {
         val classId: Int,
         val title: String,
         val labNo: String,
-        val scheduled: String
+        val scheduled: String,
+        val desc: String
     ) : RecyclerViewItem(), Parcelable
 }

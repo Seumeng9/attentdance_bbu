@@ -3,7 +3,10 @@ package com.bbu.attendancetracking.repository
 import android.util.Log
 import com.bbu.attendancetracking.api.ApiClient
 import com.bbu.attendancetracking.model.AttendanceResponse
+import com.bbu.attendancetracking.model.report.ClassAttendanceReport
+import com.bbu.attendancetracking.ui.home.student_report.Student
 import retrofit2.Response
+import retrofit2.http.Query
 
 class AttendantRepository {
 private final val attendantService = ApiClient.attendantService
@@ -26,5 +29,16 @@ private final val attendantService = ApiClient.attendantService
 
 
         return r
+    }
+
+    suspend fun getAttendanceHis(classId: Int, month: Int, year: Int): Response<ClassAttendanceReport> {
+        return attendantService.getAttHisByClassId(
+            classId, month, year
+        )
+    }
+
+
+    suspend fun getAttendanceByClassIdForTeacher(classId: Int): Response<List<Student>> {
+        return attendantService.getAttendanceByClassIdForTeacher(classId)
     }
 }

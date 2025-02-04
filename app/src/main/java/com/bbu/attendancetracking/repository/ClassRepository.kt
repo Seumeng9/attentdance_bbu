@@ -1,7 +1,9 @@
 package com.bbu.attendancetracking.repository
 
 import com.bbu.attendancetracking.api.ApiClient
-import com.bbu.attendancetracking.model.ClassResponse
+import com.bbu.attendancetracking.model.ClassCategory
+import com.bbu.attendancetracking.model.ClassItem
+//import com.bbu.attendancetracking.model.ClassResponse
 import retrofit2.Response
 
 class ClassRepository {
@@ -9,10 +11,14 @@ class ClassRepository {
     private val classService = ApiClient.classService
 
     suspend fun getListClass(
-        limit: String,
-        filter: String,
-        page: Int
-    ): Response<ClassResponse> {
-        return classService.getClassList(limit, filter, page)
+        token: String,
+        searchText: String,
+        role: String
+    ): Response<List<ClassCategory>> {
+        return classService.getClassList(token, searchText, role)
+    }
+
+    suspend fun getAllClass(): Response<List<ClassItem>> {
+        return  classService.getAllClass()
     }
 }

@@ -203,7 +203,8 @@ class ScanQrFragment : Fragment() {
     }
 
     private fun getCurrentLocation(callback: (Double, Double) -> Unit) {
-        // Check if the permission is granted
+
+        // Check if the permission is granted, if not load request permission
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION

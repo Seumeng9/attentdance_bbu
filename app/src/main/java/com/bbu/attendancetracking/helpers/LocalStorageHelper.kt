@@ -14,13 +14,15 @@ class LocalStorageHelper {
 
             // Convert model to JSON string
             val json = Gson().toJson(loginResponse)
+
+
             editor.putString("loginResponse", json)
             editor.apply()
         }
 
         // Retrieve LoginResponse from SharedPreferences
-        fun getLoginResponse(context: Context): LoginResponse? {
-            val sharedPreferences = context.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+        fun getLoginResponse(): LoginResponse? {
+            val sharedPreferences = MyApplication.instance.applicationContext.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
             val json = sharedPreferences.getString("loginResponse", null)
 
             return if (json != null) {
@@ -28,6 +30,17 @@ class LocalStorageHelper {
             } else {
                 null
             }
+        }
+
+
+        fun getUserRole(): String {
+
+            val userRoles: List<String>  = getLoginResponse()?.user?.roles ?: emptyList()
+
+            return if (userRoles.contains("ADMIN")) "ADMIN"
+                else if (userRoles.contains("TEACHER")) "TEACHER"
+                else  "STUDENT"
+
         }
 
         fun saveToken(context: Context, token: String) {
@@ -38,8 +51,8 @@ class LocalStorageHelper {
             editor.apply()
         }
 
-        fun  getToken(context: Context): String? {
-            val sharedPreferences = context.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+        fun  getToken(): String {
+            val sharedPreferences = MyApplication.instance.applicationContext.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
             val token = sharedPreferences.getString("token", "")
 
             return token?:""
@@ -58,6 +71,18 @@ class LocalStorageHelper {
             val id = sharedPreferences.getInt("classGeneratedQrId", 0)
 
             return id
+        }
+
+         fun saveImageUri(uri: String) {
+            val sharedPreferences = MyApplication.instance.applicationContext.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            sharedPreferences.edit()
+                .putString("IMAGE_URI", uri)
+                .apply()
+        }
+
+         fun getImageUri(): String? {
+            val sharedPreferences = MyApplication.instance.applicationContext.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            return sharedPreferences.getString("IMAGE_URI", null)
         }
     }
 }
