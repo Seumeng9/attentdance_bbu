@@ -3,6 +3,7 @@ package com.bbu.attendancetracking.ui.attendance
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,11 +54,18 @@ class AttendanceFragment : Fragment(R.layout.fragment_attendance) {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.let {
 //                    val newPosition = it.position
+                    
+                    try {
+                        if(calendarViewModel.classId == 0 ){
 
-                    if(calendarViewModel.classId == 0 ){
-
-                        Handler(Looper.getMainLooper()).post {
-                            Toast.makeText(requireContext(), "Please Select Class To See Report!!!", Toast.LENGTH_SHORT).show()
+                            Handler(Looper.getMainLooper()).post {
+                                Log.d("on tap", "click caledar ta1111b")
+                                Toast.makeText(requireContext(), "Please Select Class To See Report!!!", Toast.LENGTH_SHORT).show()
+                                tabLayout.getTabAt(0)?.select()
+                            }
+                        }
+                    } catch (e: Exception){
+                        if(it.position != 0){
                             tabLayout.getTabAt(0)?.select()
                         }
                     }

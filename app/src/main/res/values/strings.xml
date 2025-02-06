@@ -16,4 +16,5 @@
     <string name="student_report">Stuent Report</string>
     <string name="attendance">Attendance</string>
     <string name="log_out">Log Out</string>
+    <string name="record_not_found">Record Not Found!</string>
 </resources>

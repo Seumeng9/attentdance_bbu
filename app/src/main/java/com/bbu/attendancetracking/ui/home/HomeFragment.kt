@@ -36,8 +36,6 @@ class HomeFragment : Fragment() {
 
     private var debounceJob: Job? = null
 
-
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -198,9 +196,19 @@ class HomeFragment : Fragment() {
                         binding.loading.visibility = View.VISIBLE
                         binding.recyclerView.visibility = View.GONE
 
+                        if(viewModel.tempClassItem.isEmpty() && viewModel.classItems.value.isNotEmpty()) {
+                            viewModel.tempClassItem = viewModel.classItems.value
+                        }
+
                         try {
                             viewModel.currentPage = 1
                             viewModel.fetchClasses(page = 1, filter = inputText)
+
+                            if(viewModel.classItems.value.isEmpty()) {
+                                binding.emptyText.visibility = View.VISIBLE
+                            }else {
+                                binding.emptyText.visibility = View.GONE
+                            }
                         } catch (e: Exception) {
                             println("Error fetching classes: ${e.message}")
                         }
@@ -210,9 +218,7 @@ class HomeFragment : Fragment() {
                         return@launch
                     }
 
-                    if(viewModel.tempClassItem.isEmpty()) {
-                        viewModel.tempClassItem = viewModel.classItems.value
-                    }
+
 
                     println("after Debounced Input: $inputText")
 
