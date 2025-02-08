@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.databinding.FragmentProfileBinding
 import com.bbu.attendancetracking.helpers.LocalStorageHelper
 import com.bbu.attendancetracking.model.LoginResponse
@@ -68,6 +67,7 @@ class ProfileFragment : Fragment() {
 
 
 
+
         binding.logoutButton.setOnClickListener{
             val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
@@ -83,6 +83,18 @@ class ProfileFragment : Fragment() {
 
         binding.imageView.setOnClickListener{
             pickImageLauncher.launch("image/*")
+        }
+
+        binding.toggleButton.isChecked = LocalStorageHelper.getMockLocation()
+
+        binding.toggleButton.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                LocalStorageHelper.saveMockLocation(true)
+
+            } else {
+
+                LocalStorageHelper.saveMockLocation(false)
+            }
         }
 
         return root

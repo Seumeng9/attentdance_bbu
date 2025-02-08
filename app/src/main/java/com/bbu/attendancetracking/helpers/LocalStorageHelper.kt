@@ -84,5 +84,20 @@ class LocalStorageHelper {
             val sharedPreferences = MyApplication.instance.applicationContext.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
             return sharedPreferences.getString("IMAGE_URI", null)
         }
+
+        fun saveMockLocation(isMock: Boolean) {
+            val sharedPreferences = MyApplication.instance.applicationContext.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+
+            editor.putBoolean("isMockLocation", isMock)
+            editor.apply()
+        }
+
+        fun  getMockLocation(): Boolean {
+            val sharedPreferences = MyApplication.instance.applicationContext.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+            val isMock = sharedPreferences.getBoolean("isMockLocation", false)
+
+            return isMock
+        }
     }
 }

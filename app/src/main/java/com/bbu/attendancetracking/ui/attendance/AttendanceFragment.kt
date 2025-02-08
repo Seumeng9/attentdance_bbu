@@ -15,6 +15,7 @@ import com.bbu.attendancetracking.databinding.FragmentAttendanceBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import androidx.viewpager2.widget.ViewPager2
+import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
 import com.bbu.attendancetracking.ui.attendance.calendar.CalendarViewModel
 
@@ -60,7 +61,7 @@ class AttendanceFragment : Fragment(R.layout.fragment_attendance) {
 
                             Handler(Looper.getMainLooper()).post {
                                 Log.d("on tap", "click caledar ta1111b")
-                                Toast.makeText(requireContext(), "Please Select Class To See Report!!!", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(MyApplication.instance.applicationContext, "Please Select Class To See Report!!!", Toast.LENGTH_SHORT).show()
                                 tabLayout.getTabAt(0)?.select()
                             }
                         }
