@@ -1,5 +1,6 @@
 package com.bbu.attendancetracking.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,15 +12,12 @@ import com.google.zxing.common.BitMatrix
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Build
-import android.util.TypedValue
 import android.view.Window
 import android.view.WindowManager
-import androidx.navigation.findNavController
 import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
-import com.bbu.attendancetracking.data.model.RecyclerViewItem
-
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
+import com.bbu.attendancetracking.ui.home.student_report.StudentReportActivity
 
 class GenerateQrActivity : AppCompatActivity() {
 
@@ -36,6 +34,8 @@ class GenerateQrActivity : AppCompatActivity() {
         }
 
         val classId = intent.getIntExtra("classId", -1)
+        val title = intent.getStringExtra("classTitle");
+        val scheduleClass = intent.getStringExtra("classSchedule");
 
 
         // Inflate the layout using ViewBinding
@@ -44,19 +44,43 @@ class GenerateQrActivity : AppCompatActivity() {
 
         binding.customAppBar.title.text = "Qr Generator"
 
+        binding.classTitle.text = title
+
+        binding.classDate.text = scheduleClass
+
 
         binding.customAppBar.backButton.setOnClickListener{
             finish()
         }
 
+        binding.classTitle.setOnClickListener{
+            val intent = Intent(this, StudentReportActivity::class.java)
+
+            intent.putExtra("classId", classId)
+            intent.putExtra("classTitle", title)
+            intent.putExtra("classSchedule", scheduleClass)
+
+
+            startActivity(intent)
+        }
+
+        if(LocalStorageHelper.getGeneratedQrClassId() == classId) {
+            generateQrCode(classId)
+        }
+
+
+
         // Handle the button click for generating the QR code
         binding.generateQrButton.setOnClickListener {
-            val qrContent = "My QR Code For Scan Submit Attendance  CLASS_ID:$classId , Use This For Submit to API" // Replace with the content you want in the QR code
-            generateQrCode(qrContent)
+            generateQrCode(classId)
+            LocalStorageHelper.saveGeneratedQrClassId(classId)
         }
     }
 
-    private fun generateQrCode(content: String) {
+    private fun generateQrCode(classId: Int) {
+
+        val content = "My QR Code For Scan Submit Attendance  CLASS_ID:$classId , Use This For Submit to API" // Replace with the content you want in the QR code
+
         try {
             val qrCodeWriter = QRCodeWriter()
             val size = 800 // Increase resolution for better scannability

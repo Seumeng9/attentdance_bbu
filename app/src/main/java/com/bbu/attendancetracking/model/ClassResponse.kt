@@ -1,16 +1,18 @@
-package com.bbu.attendancetracking.data.model
+package com.bbu.attendancetracking.model
 
 import com.google.gson.annotations.SerializedName
 
 
-data class ClassResponse(
-    val list: List<ClassCategory>,
-    val pagination: Pagination
-)
+//data class ClassResponse(
+//    val list: List<ClassCategory>,
+//    val pagination: Pagination
+//)
 
 
 data class ClassCategory(
+    @SerializedName("classes")
     val rec: List<ClassItem>,
+    @SerializedName("title")
     val cal: String
 )
 

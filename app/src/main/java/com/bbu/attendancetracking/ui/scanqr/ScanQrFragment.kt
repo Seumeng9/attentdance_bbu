@@ -24,6 +24,7 @@ import android.util.Log
 
 
 import com.bbu.attendancetracking.R
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
 import com.bbu.attendancetracking.ui.home.HomeViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -158,7 +159,19 @@ class ScanQrFragment : Fragment() {
                             lifecycleScope.async {
                                 try {
                                     lifecycleScope.async {
-                                        viewModel.submitAttendant(classId ?: 0, lat.toString(), long.toString())
+
+                                        if(LocalStorageHelper.getMockLocation()) {
+
+                                            viewModel.submitAttendant(classId ?: 0, "11.516647729836077", "104.95535159581806")
+
+                                        }else {
+                                            viewModel.submitAttendant(classId ?: 0, lat.toString(), long.toString())
+                                        }
+
+
+
+
+
 //                                        viewModel.submitAttendant(classId ?: 0, "11.516647729836077", "104.95535159581806")
                                     }.await() // Call API
 
@@ -203,7 +216,8 @@ class ScanQrFragment : Fragment() {
     }
 
     private fun getCurrentLocation(callback: (Double, Double) -> Unit) {
-        // Check if the permission is granted
+
+        // Check if the permission is granted, if not load request permission
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION

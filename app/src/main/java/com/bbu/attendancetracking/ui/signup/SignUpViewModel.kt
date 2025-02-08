@@ -1,9 +1,12 @@
 package com.bbu.attendancetracking.ui.signup
 
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.repository.ApiRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -30,13 +33,17 @@ class SignupViewModel : ViewModel() {
 
             try {
                 val response = ApiRepository().register(user)
+
+
                 return if (response.isSuccessful) {
                     // Handle successful response
-                    println("User registered successfully: ${response.body()}")
+//                    println("User registered successfully: ${response.body()}")
                     response
                 } else {
                     // Handle error response
-                    println("Failed to register user: ${response.errorBody()?.string()}")
+//                    println("Failed to register user: ${response.errorBody()?.string()}")
+
+
                     response
                 }
             } catch (e: Exception) {

@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.bbu.attendancetracking"
-    compileSdk = 34
+    compileSdk = 35
 
     viewBinding {
         enable = true
@@ -15,8 +15,9 @@ android {
 
     defaultConfig {
         applicationId = "com.bbu.attendancetracking"
-        minSdk = 24
-        targetSdk = 33
+        minSdk = 26
+        //noinspection EditedTargetSdkVersion
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -67,26 +68,29 @@ dependencies {
     // Retrofit converter (for JSON parsing)
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
+    //scan qr
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("com.google.zxing:core:3.4.0")
 
+    //tabbar view
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    //For UI Enhance
     implementation ("com.google.android.material:material:1.3.0")
 
+    //location (get lat,long)
     implementation ("com.google.android.gms:play-services-location:18.0.0")
 
-
-
-
+    //logger api
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
-    implementation ("com.squareup.retrofit2:converter-scalars:2.9.0") // Add this line
 
+    //accept string response
+    implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
 
-    dependencies {
-        implementation("com.prolificinteractive:material-calendarview:1.4.3") {
-            exclude(group = "com.android.support", module = "support-compat")
-        }
-    }
+    //calendar
+    implementation("com.prolificinteractive:material-calendarview:1.4.3")
+    //image load
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
 
 
 }

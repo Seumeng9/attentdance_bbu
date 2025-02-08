@@ -2,8 +2,7 @@ package com.bbu.attendancetracking.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.bbu.attendancetracking.data.LoginDataSource
-import com.bbu.attendancetracking.data.LoginRepository
+import com.bbu.attendancetracking.repository.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

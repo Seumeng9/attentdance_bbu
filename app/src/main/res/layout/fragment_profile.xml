@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     android:background="@android:color/white">
 
 <!--    <ImageView-->
@@ -14,39 +13,159 @@
 <!--        android:layout_gravity="center"-->
 <!--        android:src="@drawable/ic_profile" />-->
 
-    <TextView
-        android:id="@+id/profile_name"
+    <!-- AppBar -->
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="Your Name"
-        android:textSize="18sp"
-        android:textColor="@android:color/black" />
+        android:background="@color/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:elevation="4dp">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/profile_blank"
-        app:srcCompat="@drawable/profile_blank" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profile"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif-medium" />
+    </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:id="@+id/profile_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="youremail@example.com"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray" />
 
-    <Button
-        android:id="@+id/logout_button"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Log Out"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:textColor="@android:color/white" />
+        xmlns:tools="http://schemas.android.com/tools"
+        android:fillViewport="true">  <!-- Ensures it expands properly -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:layout_height="wrap_content">
+
+
+
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+
+            android:textOn="Mock Location ON"
+            android:textOff="Mock Location OFF"
+            />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="30dp"
+            android:scaleType="centerCrop"
+            android:padding="5dp"
+            android:src="@drawable/profile_blank"
+            app:strokeWidth="2dp"
+            android:layout_gravity="center_horizontal"
+            app:strokeColor="@color/black"
+            app:shapeAppearanceOverlay="@style/CircleImageView"/>
+
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Your Name"
+            android:textSize="18sp"
+            android:textColor="@android:color/black" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="30dp">
+
+        </View>
+
+<!--        stu id-->
+
+
+        <TextView
+            android:id="@+id/labelStudentId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_margin="10dp"
+            android:gravity="left"
+            android:text="Student ID: "
+            android:textSize="18sp"
+            android:textColor="@android:color/black" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            app:dividerColor="@color/colorPrimary"
+            android:layout_height="1dp">
+
+        </com.google.android.material.divider.MaterialDivider>
+
+        <TextView
+            android:id="@+id/profile_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_margin="10dp"
+            android:gravity="left"
+            android:text="09494994"
+            android:textSize="18sp"
+            android:textColor="@android:color/darker_gray" />
+
+<!--        end stu id-->
+
+
+        <TextView
+            android:id="@+id/labelStudentEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_margin="10dp"
+            android:gravity="left"
+            android:text="Email: "
+            android:textSize="18sp"
+            android:textColor="@android:color/black" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            app:dividerColor="@color/colorPrimary"
+            android:layout_height="1dp">
+
+        </com.google.android.material.divider.MaterialDivider>
+
+        <TextView
+            android:id="@+id/profile_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_margin="10dp"
+            android:gravity="left"
+            android:text="youremail@example.com"
+            android:textSize="18sp"
+            android:textColor="@android:color/darker_gray" />
+
+        <Button
+            android:id="@+id/logout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/log_out"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@android:color/white" />
+        
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dp">
+
+        </View>
+
+    </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>

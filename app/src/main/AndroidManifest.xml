@@ -2,12 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+
+<!--    internet (for api request or something else -->
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+<!--    camera-->
     <uses-permission android:name="android.permission.CAMERA" />
+
+<!--    Location-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -34,6 +42,12 @@
             android:exported="false"
             android:theme="@style/LoginTheme"
             android:label="@string/title_activity_login" />
+
+        <activity
+            android:name=".ui.home.student_report.StudentReportActivity"
+            android:exported="false"
+            android:theme="@style/LoginTheme"
+            android:label="Student Report" />
 
         <activity android:name= ".ui.home.GenerateQrActivity"
             android:exported="false"

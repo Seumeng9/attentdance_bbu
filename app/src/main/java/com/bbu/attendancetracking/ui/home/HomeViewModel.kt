@@ -5,17 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bbu.attendancetracking.data.model.ClassItem
-import com.bbu.attendancetracking.data.model.ClassResponse
-import com.bbu.attendancetracking.data.model.RecyclerViewItem
-import com.bbu.attendancetracking.repository.ApiRepository
-import com.google.gson.Gson
-import com.google.gson.JsonObject
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
+import com.bbu.attendancetracking.model.ClassCategory
+
+//import com.bbu.attendancetracking.model.ClassResponse
+import com.bbu.attendancetracking.model.RecyclerViewItem
+import com.bbu.attendancetracking.repository.ClassRepository
+
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.RequestBody
 
 class HomeViewModel() : ViewModel() {
 
@@ -52,7 +51,12 @@ class HomeViewModel() : ViewModel() {
         }
 
         try {
-            val response = ApiRepository().getListClass("40", filter, page)
+
+            val token = LocalStorageHelper.getToken()
+
+            val role = LocalStorageHelper.getUserRole()
+
+            val response = ClassRepository().getListClass(token, filter, role)
 
             if (response.isSuccessful) {
                 response.body()?.let {
@@ -76,9 +80,9 @@ class HomeViewModel() : ViewModel() {
 
 
 
-    private fun parseClassResponse(classResponse: ClassResponse): List<RecyclerViewItem> {
+    private fun parseClassResponse(classResponse: List<ClassCategory>): List<RecyclerViewItem> {
         val items = mutableListOf<RecyclerViewItem>()
-        for (category in classResponse.list) {
+        for (category in classResponse) {
             // Add header for each category
             if(category.rec.isNotEmpty()){
                 items.add(RecyclerViewItem.Header(category.cal))
@@ -87,6 +91,7 @@ class HomeViewModel() : ViewModel() {
                     RecyclerViewItem.ClassItem(
                         classId = it.classId,
                         title = it.title,
+                        desc = it.description,
                         labNo = it.labNo,
                         scheduled = it.scheduled
                     )

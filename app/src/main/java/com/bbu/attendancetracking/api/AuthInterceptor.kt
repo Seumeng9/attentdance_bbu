@@ -2,7 +2,7 @@ package com.bbu.attendancetracking.api
 
 import android.util.Log
 import com.bbu.attendancetracking.MyApplication
-import com.bbu.attendancetracking.data.LocalStorageHelper
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -13,14 +13,14 @@ class AuthInterceptor() : Interceptor {
 
 
 
-        val token = LocalStorageHelper.getToken(MyApplication.instance.applicationContext)
+        val token = LocalStorageHelper.getToken()
 
         Log.d("Auth INtercep", "$token")
 
         // Create a new request by adding the Authorization header on top of the original headers
         val newRequest = if (token != null) {
             originalRequest.newBuilder()
-                .addHeader("Authorization", "Bearer $token") // Add, not replace
+                .addHeader("Authorization", "$token") // Add, not replace
                 .addHeader("accept", "*/*")
                 .addHeader("Content-Type", "application/json")
                 .build()

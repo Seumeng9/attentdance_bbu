@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,13 +18,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
-import com.bbu.attendancetracking.data.LocalStorageHelper
-import com.bbu.attendancetracking.data.model.LoginResponse
-import com.bbu.attendancetracking.data.model.RecyclerViewItem
+import com.bbu.attendancetracking.helpers.LocalStorageHelper
 import com.bbu.attendancetracking.databinding.FragmentHomeBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+
+import com.bbu.attendancetracking.model.LoginResponse
+import com.bbu.attendancetracking.model.RecyclerViewItem
 import kotlinx.coroutines.Job
+
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -34,8 +35,6 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
 
     private var debounceJob: Job? = null
-
-
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -67,7 +66,7 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-       var loginResponse: LoginResponse? = LocalStorageHelper.getLoginResponse(MyApplication.instance.applicationContext)
+       var loginResponse: LoginResponse? = LocalStorageHelper.getLoginResponse()
 
         binding.customAppBar.profileName.text = loginResponse?.user?.lastName
 
@@ -95,11 +94,13 @@ class HomeFragment : Fragment() {
                 is RecyclerViewItem.ClassItem -> {
                     println("ClassItem - Title: ${item.classId}")
 
-                    var loginDetails: LoginResponse? = LocalStorageHelper.getLoginResponse(MyApplication.instance.applicationContext)
+                    var loginDetails: LoginResponse? = LocalStorageHelper.getLoginResponse()
 
                     if((loginDetails?.user?.roles?.any { it.equals("TEACHER", ignoreCase = true) } == true)) {
                         val intent = Intent(requireActivity(), GenerateQrActivity::class.java)
                         intent.putExtra("classId", item.classId)
+                        intent.putExtra("classTitle", item.title)
+                        intent.putExtra("classSchedule", item.scheduled)
                         startActivity(intent)
                     }else {
                         findNavController().navigate(R.id.navigation_scan_qr)
@@ -195,9 +196,19 @@ class HomeFragment : Fragment() {
                         binding.loading.visibility = View.VISIBLE
                         binding.recyclerView.visibility = View.GONE
 
+                        if(viewModel.tempClassItem.isEmpty() && viewModel.classItems.value.isNotEmpty()) {
+                            viewModel.tempClassItem = viewModel.classItems.value
+                        }
+
                         try {
                             viewModel.currentPage = 1
                             viewModel.fetchClasses(page = 1, filter = inputText)
+
+                            if(viewModel.classItems.value.isEmpty()) {
+                                binding.emptyText.visibility = View.VISIBLE
+                            }else {
+                                binding.emptyText.visibility = View.GONE
+                            }
                         } catch (e: Exception) {
                             println("Error fetching classes: ${e.message}")
                         }
@@ -207,9 +218,7 @@ class HomeFragment : Fragment() {
                         return@launch
                     }
 
-                    if(viewModel.tempClassItem.isEmpty()) {
-                        viewModel.tempClassItem = viewModel.classItems.value
-                    }
+
 
                     println("after Debounced Input: $inputText")
 
