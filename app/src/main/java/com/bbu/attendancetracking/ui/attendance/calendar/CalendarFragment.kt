@@ -46,6 +46,14 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
     }
 
 
+    override fun onPause() {
+
+        viewModel.triggerClear()
+
+        super.onPause()
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -118,6 +126,7 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
 
             val collection: Collection<CalendarDay> = viewModel.lateDatesList.value ?: emptyList()
             binding.late.text = "${viewModel.lateDatesList.value?.size} D"
+
             calendarView.addDecorators(
                 EventDecorator(collection , ContextCompat.getColor(requireContext(), R.color.yellow)),
             )
@@ -145,27 +154,34 @@ class CalendarFragment : Fragment(R.layout.fragment_calendar) {
             )
         }
 
+        viewModel.triggerClear.observe(viewLifecycleOwner){
+            calendarView.removeDecorators()
+            calendarView.invalidate()
+        }
+
         // Highlight dates
 //        highlightDates(calendarView)
 
         return binding.root
     }
 
-    private fun highlightDates(calendarView: MaterialCalendarView) {
+
+
+    private fun cleardata(calendarView: MaterialCalendarView) {
 
 
         val presentDates = listOf(
-            CalendarDay.from(2025, 0, 1),  // Sample Date
-            CalendarDay.from(2025, 0, 2)
+            CalendarDay.from(2000, 0, 1),  // Sample Date
+            CalendarDay.from(2000, 0, 2)
         )
 
         val lateDates = listOf(
-            CalendarDay.from(2025, 1, 3)
+            CalendarDay.from(2000, 1, 3)
         )
 
         val absentDates = listOf(
-            CalendarDay.from(2025, 1, 4),
-            CalendarDay.from(2025, 11, 9)
+            CalendarDay.from(2000, 1, 4),
+            CalendarDay.from(2000, 11, 9)
         )
 
 

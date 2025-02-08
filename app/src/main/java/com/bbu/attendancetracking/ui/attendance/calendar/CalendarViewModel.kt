@@ -31,6 +31,10 @@ class CalendarViewModel: ViewModel() {
 
     private val _absentDatesList = MutableLiveData<List<CalendarDay>>()
     val absentDatesList: LiveData<List<CalendarDay>> = _absentDatesList
+
+
+    private val _triggerClear = MutableLiveData<Boolean>(false)
+    val triggerClear: LiveData<Boolean> = _triggerClear
     
 
      fun mapData(apiResponse: List<AttendanceHistory> ) {
@@ -71,6 +75,11 @@ class CalendarViewModel: ViewModel() {
         println("Present: $presentDatesList")
         println("Late: $lateDatesList")
         println("Absent: $absentDatesList")
+    }
+
+
+    fun triggerClear() {
+        _triggerClear.value = !_triggerClear.value!!
     }
 
 
