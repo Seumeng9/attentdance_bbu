@@ -15,11 +15,7 @@ class AttendancePagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> ClassReportFragment()    // Report tab
-            1 -> {
-                val fragment = CalendarFragment()
-                fragment.arguments = calendarArgs  // Pass arguments when creating CalendarFragment
-                fragment
-            } // Calendar tab
+            1 -> CalendarFragment() // Calendar tab
             else -> throw IllegalStateException("Invalid position")
         }
     }
