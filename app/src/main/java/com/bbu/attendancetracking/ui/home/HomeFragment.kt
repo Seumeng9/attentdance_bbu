@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bbu.attendancetracking.MainActivity
 import com.bbu.attendancetracking.MyApplication
 import com.bbu.attendancetracking.R
 import com.bbu.attendancetracking.helpers.LocalStorageHelper
@@ -23,6 +24,7 @@ import com.bbu.attendancetracking.databinding.FragmentHomeBinding
 
 import com.bbu.attendancetracking.model.LoginResponse
 import com.bbu.attendancetracking.model.RecyclerViewItem
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.Job
 
 import kotlinx.coroutines.async
@@ -103,7 +105,10 @@ class HomeFragment : Fragment() {
                         intent.putExtra("classSchedule", item.scheduled)
                         startActivity(intent)
                     }else {
-                        findNavController().navigate(R.id.navigation_scan_qr)
+                        val navView = requireActivity().findViewById<BottomNavigationView>(R.id.nav_view)
+
+                        // Simulate a click on the Scan QR tab
+                        navView.selectedItemId = R.id.navigation_scan_qr
                     }
 
 

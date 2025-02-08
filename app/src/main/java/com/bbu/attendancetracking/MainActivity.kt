@@ -20,6 +20,9 @@ import com.bbu.attendancetracking.ui.login.LoginActivity
 
 import android.Manifest
 import androidx.core.app.ActivityCompat
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -29,8 +32,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         // Check login state
         val sharedPreferences: SharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
@@ -48,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         val navView: BottomNavigationView = binding.navView
 
         supportActionBar?.hide()  // Hide the default ActionBar
@@ -58,18 +65,22 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("AAAA", "loginDetails?.user?.roles: ${loginDetails?.user?.roles}")
 
+        binding.navView.setOnItemSelectedListener { item ->
+            Log.d("aaaa", "swiitch tab")
+            NavigationUI.onNavDestinationSelected(item, binding.navView.findNavController())
+            true
+        }
+
 
         navView.menu.findItem(R.id.navigation_scan_qr).isVisible =
             (loginDetails?.user?.roles?.any { it.equals("STUDENT", ignoreCase = true) } == true)
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window: Window = window
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor =
                 resources.getColor(R.color.colorPrimary) // Set your desired color here
-        }
 
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
@@ -90,6 +101,8 @@ class MainActivity : AppCompatActivity() {
 
         // You can add any additional setup for the custom app bar here
     }
+
+
 
 
     private fun requestLocationPersmission() {
